@@ -1,0 +1,2971 @@
+[
+    {
+        "label": "Component",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Container",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Link",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Grid",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Flex",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "ModernTabs",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Badge",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Button",
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "isExtraImport": true,
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Style",
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "isExtraImport": true,
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "App",
+        "importPath": "pytoweb.app",
+        "description": "pytoweb.app",
+        "isExtraImport": true,
+        "detail": "pytoweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "importPath": "pytoweb.router",
+        "description": "pytoweb.router",
+        "isExtraImport": true,
+        "detail": "pytoweb.router",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TypeVar",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Generic",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Set",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TypeVar",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TypedDict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Type",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Set",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Set",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TypeVar",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TypedDict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "asdict",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "wraps",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "weakref",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "weakref",
+        "description": "weakref",
+        "detail": "weakref",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "OrderedDict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "OrderedDict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "psutil",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "psutil",
+        "description": "psutil",
+        "detail": "psutil",
+        "documentation": {}
+    },
+    {
+        "label": "traceback",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "traceback",
+        "description": "traceback",
+        "detail": "traceback",
+        "documentation": {}
+    },
+    {
+        "label": "Observer",
+        "importPath": "watchdog.observers",
+        "description": "watchdog.observers",
+        "isExtraImport": true,
+        "detail": "watchdog.observers",
+        "documentation": {}
+    },
+    {
+        "label": "FileSystemEventHandler",
+        "importPath": "watchdog.events",
+        "description": "watchdog.events",
+        "isExtraImport": true,
+        "detail": "watchdog.events",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "contextmanager",
+        "importPath": "contextlib",
+        "description": "contextlib",
+        "isExtraImport": true,
+        "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "ThreadPoolExecutor",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "ThreadPoolExecutor",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "ThreadPoolExecutor",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "importlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "importlib",
+        "description": "importlib",
+        "detail": "importlib",
+        "documentation": {}
+    },
+    {
+        "label": "inspect",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "inspect",
+        "description": "inspect",
+        "detail": "inspect",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPServer",
+        "importPath": "http.server",
+        "description": "http.server",
+        "isExtraImport": true,
+        "detail": "http.server",
+        "documentation": {}
+    },
+    {
+        "label": "BaseHTTPRequestHandler",
+        "importPath": "http.server",
+        "description": "http.server",
+        "isExtraImport": true,
+        "detail": "http.server",
+        "documentation": {}
+    },
+    {
+        "label": "parse_qs",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "urlparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "difflib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "difflib",
+        "description": "difflib",
+        "detail": "difflib",
+        "documentation": {}
+    },
+    {
+        "label": "queue",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "queue",
+        "description": "queue",
+        "detail": "queue",
+        "documentation": {}
+    },
+    {
+        "label": "setup",
+        "importPath": "setuptools",
+        "description": "setuptools",
+        "isExtraImport": true,
+        "detail": "setuptools",
+        "documentation": {}
+    },
+    {
+        "label": "find_packages",
+        "importPath": "setuptools",
+        "description": "setuptools",
+        "isExtraImport": true,
+        "detail": "setuptools",
+        "documentation": {}
+    },
+    {
+        "label": "Header",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class Header(Component):\n    \"\"\"页面头部组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"header\"\n        self.style.add(\n            padding=\"1rem\",\n            background_color=\"#ffffff\",\n            box_shadow=\"0 2px 4px rgba(0,0,0,0.1)\",\n            position=\"sticky\",",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "Hero",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class Hero(Component):\n    \"\"\"首页英雄区组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"section\"\n        self.style.add(\n            padding=\"4rem 2rem\",\n            background=\"linear-gradient(135deg, #667eea 0%, #764ba2 100%)\",\n            color=\"#ffffff\",\n            text_align=\"center\"",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "About",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class About(Component):\n    \"\"\"关于我组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"section\"\n        self.set_prop(\"id\", \"about\")\n        self.style.add(\n            padding=\"4rem 2rem\",\n            background_color=\"#f8f9fa\"\n        )",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "Skills",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class Skills(Component):\n    \"\"\"技能组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"section\"\n        self.set_prop(\"id\", \"skills\")\n        self.style.add(\n            padding=\"4rem 2rem\",\n            background_color=\"#ffffff\"\n        )",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "Projects",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class Projects(Component):\n    \"\"\"项目展示组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"section\"\n        self.set_prop(\"id\", \"projects\")\n        self.style.add(\n            padding=\"4rem 2rem\",\n            background_color=\"#f8f9fa\"\n        )",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "Contact",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class Contact(Component):\n    \"\"\"联系方式组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"section\"\n        self.set_prop(\"id\", \"contact\")\n        self.style.add(\n            padding=\"4rem 2rem\",\n            background_color=\"#ffffff\"\n        )",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "Footer",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class Footer(Component):\n    \"\"\"页脚组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.tag_name = \"footer\"\n        self.style.add(\n            padding=\"2rem\",\n            background_color=\"#333\",\n            color=\"#ffffff\",\n            text_align=\"center\"",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "HomePage",
+        "kind": 6,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "class HomePage(Component):\n    \"\"\"首页组件\"\"\"\n    def __init__(self):\n        super().__init__()\n        self.add_child(Header())\n        self.add_child(Hero())\n        self.add_child(About())\n        self.add_child(Skills())\n        self.add_child(Projects())\n        self.add_child(Contact())",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "def home():\n    return HomePage()\n# 启动应用\nif __name__ == \"__main__\":\n    app.use(router)\n    app.run(debug=True)",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "app = App()\nrouter = Router()\n# 注册路由\n@router.route(\"/\")\ndef home():\n    return HomePage()\n# 启动应用\nif __name__ == \"__main__\":\n    app.use(router)\n    app.run(debug=True)",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "example.app",
+        "description": "example.app",
+        "peekOfCode": "router = Router()\n# 注册路由\n@router.route(\"/\")\ndef home():\n    return HomePage()\n# 启动应用\nif __name__ == \"__main__\":\n    app.use(router)\n    app.run(debug=True)",
+        "detail": "example.app",
+        "documentation": {}
+    },
+    {
+        "label": "AnimationTiming",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class AnimationTiming:\n    \"\"\"Animation timing configuration\"\"\"\n    duration: float = 0.3\n    delay: float = 0\n    iteration_count: Union[int, str] = 1\n    direction: str = 'normal'\n    timing_function: str = 'ease'\n    fill_mode: str = 'forwards'\nclass Animation:\n    \"\"\"Animation definition class\"\"\"",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Animation",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Animation:\n    \"\"\"Animation definition class\"\"\"\n    def __init__(self, name: str, keyframes: Dict[str, Dict[str, str]], timing: Optional[AnimationTiming] = None):\n        self.name = name\n        self.keyframes = keyframes\n        self.timing = timing or AnimationTiming()\n    def to_css(self) -> str:\n        \"\"\"Convert animation to CSS\"\"\"\n        css = [f'@keyframes {self.name} {{']\n        for selector, styles in self.keyframes.items():",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "AnimationSequence",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class AnimationSequence:\n    \"\"\"Animation sequence for chaining multiple animations\"\"\"\n    def __init__(self, *animations: Tuple[Animation, float]):\n        self.animations = animations\n        self.total_duration = sum(duration for _, duration in animations)\n    def to_css(self) -> str:\n        \"\"\"Convert animation sequence to CSS\"\"\"\n        css_parts = []\n        current_time = 0\n        for animation, duration in self.animations:",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Flip",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Flip(Animation):\n    \"\"\"3D flip animation\"\"\"\n    def __init__(self, direction: str = 'x', duration: float = 0.6):\n        timing = AnimationTiming(duration=duration)\n        axis = 'X' if direction.lower() == 'x' else 'Y'\n        super().__init__(f'flip-{direction}', {\n            'from': {\n                'transform': f'perspective(400px) rotate{axis}(0)',\n                'animation-timing-function': 'ease-out'\n            },",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Elastic",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Elastic(Animation):\n    \"\"\"Elastic animation\"\"\"\n    def __init__(self, direction: str = 'in', duration: float = 1.0):\n        timing = AnimationTiming(duration=duration)\n        if direction == 'in':\n            keyframes = {\n                '0%': {'transform': 'scale(0)'},\n                '55%': {'transform': 'scale(1.05)'},\n                '75%': {'transform': 'scale(0.95)'},\n                '90%': {'transform': 'scale(1.02)'},",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Swing",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Swing(Animation):\n    \"\"\"Swing animation\"\"\"\n    def __init__(self, duration: float = 1.0):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('swing', {\n            '0%': {'transform': 'rotate(0deg)'},\n            '20%': {'transform': 'rotate(15deg)'},\n            '40%': {'transform': 'rotate(-10deg)'},\n            '60%': {'transform': 'rotate(5deg)'},\n            '80%': {'transform': 'rotate(-5deg)'},",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Wobble",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Wobble(Animation):\n    \"\"\"Wobble animation\"\"\"\n    def __init__(self, duration: float = 1.0):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('wobble', {\n            '0%': {'transform': 'translateX(0%)'},\n            '15%': {'transform': 'translateX(-25%) rotate(-5deg)'},\n            '30%': {'transform': 'translateX(20%) rotate(3deg)'},\n            '45%': {'transform': 'translateX(-15%) rotate(-3deg)'},\n            '60%': {'transform': 'translateX(10%) rotate(2deg)'},",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "TypeWriter",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class TypeWriter(Animation):\n    \"\"\"Typewriter text animation\"\"\"\n    def __init__(self, text_length: int, duration: float = 2.0):\n        timing = AnimationTiming(duration=duration)\n        steps = {}\n        for i in range(text_length + 1):\n            percentage = (i / text_length) * 100\n            steps[f'{percentage}%'] = {\n                'width': f'{i}ch',\n                'border-right-color': f'{\"transparent\" if i == text_length else \"currentColor\"}'",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "FadeIn",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class FadeIn(Animation):\n    \"\"\"Fade in animation\"\"\"\n    def __init__(self, duration: float = 0.3):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('fade-in', {\n            'from': {'opacity': '0'},\n            'to': {'opacity': '1'}\n        }, timing)\nclass FadeOut(Animation):\n    \"\"\"Fade out animation\"\"\"",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "FadeOut",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class FadeOut(Animation):\n    \"\"\"Fade out animation\"\"\"\n    def __init__(self, duration: float = 0.3):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('fade-out', {\n            'from': {'opacity': '1'},\n            'to': {'opacity': '0'}\n        }, timing)\nclass Slide(Animation):\n    \"\"\"Slide animation\"\"\"",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Slide",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Slide(Animation):\n    \"\"\"Slide animation\"\"\"\n    def __init__(self, direction: str = 'left', duration: float = 0.3):\n        timing = AnimationTiming(duration=duration)\n        if direction == 'left':\n            keyframes = {\n                'from': {'transform': 'translateX(-100%)', 'opacity': '0'},\n                'to': {'transform': 'translateX(0)', 'opacity': '1'}\n            }\n        elif direction == 'right':",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Rotate",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Rotate(Animation):\n    \"\"\"Rotate animation\"\"\"\n    def __init__(self, degrees: int = 360, duration: float = 0.3):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('rotate', {\n            'from': {'transform': 'rotate(0deg)'},\n            'to': {'transform': f'rotate({degrees}deg)'}\n        }, timing)\nclass Scale(Animation):\n    \"\"\"Scale animation\"\"\"",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Scale",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Scale(Animation):\n    \"\"\"Scale animation\"\"\"\n    def __init__(self, from_scale: float = 0, to_scale: float = 1, duration: float = 0.3):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('scale', {\n            'from': {'transform': f'scale({from_scale})'},\n            'to': {'transform': f'scale({to_scale})'}\n        }, timing)\nclass Bounce(Animation):\n    \"\"\"Bounce animation\"\"\"",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Bounce",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Bounce(Animation):\n    \"\"\"Bounce animation\"\"\"\n    def __init__(self, duration: float = 1.0):\n        timing = AnimationTiming(duration=duration)\n        super().__init__('bounce', {\n            '0%': {'transform': 'translateY(0)'},\n            '20%': {'transform': 'translateY(0)'},\n            '40%': {'transform': 'translateY(-30px)'},\n            '50%': {'transform': 'translateY(0)'},\n            '60%': {'transform': 'translateY(-15px)'},",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Shake",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Shake(Animation):\n    \"\"\"Shake animation\"\"\"\n    def __init__(self, intensity: int = 10, duration: float = 0.8):\n        timing = AnimationTiming(duration=duration)\n        keyframes = {}\n        steps = 10\n        for i in range(steps + 1):\n            percentage = f\"{(i * 100) // steps}%\"\n            if i % 2 == 0:\n                keyframes[percentage] = {'transform': f'translateX({intensity}px)'}",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "Pulse",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class Pulse(Animation):\n    \"\"\"Pulse animation\"\"\"\n    def __init__(self, scale: float = 1.1, duration: float = 1.0):\n        timing = AnimationTiming(duration=duration, iteration_count='infinite')\n        super().__init__('pulse', {\n            '0%': {'transform': 'scale(1)'},\n            '50%': {'transform': f'scale({scale})'},\n            '100%': {'transform': 'scale(1)'}\n        }, timing)\nclass AnimationManager:",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "AnimationManager",
+        "kind": 6,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "class AnimationManager:\n    \"\"\"Animation management class\"\"\"\n    _animations: Dict[str, Animation] = {}\n    @classmethod\n    def register(cls, animation: Animation):\n        \"\"\"Register animation\"\"\"\n        cls._animations[animation.name] = animation\n    @classmethod\n    def get(cls, name: str) -> Optional[Animation]:\n        \"\"\"Get registered animation\"\"\"",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "FADE_IN",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "FADE_IN = FadeIn()\nFADE_OUT = FadeOut()\nSLIDE_IN = Slide()\nSLIDE_OUT = Slide('right')\nSLIDE_UP = Slide('up')\nSLIDE_DOWN = Slide('down')\nROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "FADE_OUT",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "FADE_OUT = FadeOut()\nSLIDE_IN = Slide()\nSLIDE_OUT = Slide('right')\nSLIDE_UP = Slide('up')\nSLIDE_DOWN = Slide('down')\nROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SLIDE_IN",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SLIDE_IN = Slide()\nSLIDE_OUT = Slide('right')\nSLIDE_UP = Slide('up')\nSLIDE_DOWN = Slide('down')\nROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SLIDE_OUT",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SLIDE_OUT = Slide('right')\nSLIDE_UP = Slide('up')\nSLIDE_DOWN = Slide('down')\nROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SLIDE_UP",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SLIDE_UP = Slide('up')\nSLIDE_DOWN = Slide('down')\nROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SLIDE_DOWN",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SLIDE_DOWN = Slide('down')\nROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "ROTATE",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "ROTATE = Rotate()\nSCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SCALE",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SCALE = Scale()\nBOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "BOUNCE",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "BOUNCE = Bounce()\nSHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SHAKE",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SHAKE = Shake()\nPULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "PULSE",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "PULSE = Pulse()\nELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "ELASTIC_IN",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "ELASTIC_IN = Elastic('in')\nELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,\n    SLIDE_IN, SLIDE_OUT, SLIDE_UP, SLIDE_DOWN,",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "ELASTIC_OUT",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "ELASTIC_OUT = Elastic('out')\nSWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,\n    SLIDE_IN, SLIDE_OUT, SLIDE_UP, SLIDE_DOWN,\n    ROTATE, SCALE, BOUNCE, SHAKE, PULSE,",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "SWING",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "SWING = Swing()\nWOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,\n    SLIDE_IN, SLIDE_OUT, SLIDE_UP, SLIDE_DOWN,\n    ROTATE, SCALE, BOUNCE, SHAKE, PULSE,\n    ELASTIC_IN, ELASTIC_OUT, SWING, WOBBLE,",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "WOBBLE",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "WOBBLE = Wobble()\nZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,\n    SLIDE_IN, SLIDE_OUT, SLIDE_UP, SLIDE_DOWN,\n    ROTATE, SCALE, BOUNCE, SHAKE, PULSE,\n    ELASTIC_IN, ELASTIC_OUT, SWING, WOBBLE,\n    ZOOM_IN, ZOOM_OUT",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "ZOOM_IN",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "ZOOM_IN = Scale(0, 1, 0.3)  # 从0缩放到1\nZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,\n    SLIDE_IN, SLIDE_OUT, SLIDE_UP, SLIDE_DOWN,\n    ROTATE, SCALE, BOUNCE, SHAKE, PULSE,\n    ELASTIC_IN, ELASTIC_OUT, SWING, WOBBLE,\n    ZOOM_IN, ZOOM_OUT\n]:",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "ZOOM_OUT",
+        "kind": 5,
+        "importPath": "pytoweb.animations",
+        "description": "pytoweb.animations",
+        "peekOfCode": "ZOOM_OUT = Scale(1, 0, 0.3)  # 从1缩放到0\n# 注册预定义动画\nfor animation in [\n    FADE_IN, FADE_OUT,\n    SLIDE_IN, SLIDE_OUT, SLIDE_UP, SLIDE_DOWN,\n    ROTATE, SCALE, BOUNCE, SHAKE, PULSE,\n    ELASTIC_IN, ELASTIC_OUT, SWING, WOBBLE,\n    ZOOM_IN, ZOOM_OUT\n]:\n    AnimationManager.register(animation)",
+        "detail": "pytoweb.animations",
+        "documentation": {}
+    },
+    {
+        "label": "App",
+        "kind": 6,
+        "importPath": "pytoweb.app",
+        "description": "pytoweb.app",
+        "peekOfCode": "class App:\n    \"\"\"PytoWeb应用主类\"\"\"\n    def __init__(self):\n        self.server = Server()\n        self.router: Optional[Router] = None\n        self.root: Optional[Component] = None\n        self.renderer = VDOMRenderer()\n        self.middleware = []\n        self._logger = logging.getLogger(__name__)\n    def use(self, middleware: Any):",
+        "detail": "pytoweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "ComponentCache",
+        "kind": 6,
+        "importPath": "pytoweb.async_components",
+        "description": "pytoweb.async_components",
+        "peekOfCode": "class ComponentCache:\n    \"\"\"LRU cache for component rendering results\"\"\"\n    def __init__(self, maxsize: int = 128):\n        self.maxsize = maxsize\n        self._cache: Dict[str, tuple[Any, float]] = {}\n        self._access_times: Dict[str, float] = {}\n    def get(self, key: str) -> Optional[Any]:\n        \"\"\"Get item from cache\"\"\"\n        if key in self._cache:\n            value, expire_time = self._cache[key]",
+        "detail": "pytoweb.async_components",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncComponent",
+        "kind": 6,
+        "importPath": "pytoweb.async_components",
+        "description": "pytoweb.async_components",
+        "peekOfCode": "class AsyncComponent(Component):\n    \"\"\"Base class for async components\"\"\"\n    def __init__(self):\n        super().__init__()\n        self._cache = ComponentCache()\n        self._pending_renders = weakref.WeakSet()\n    async def render_async(self) -> Component:\n        \"\"\"Asynchronous render method\"\"\"\n        raise NotImplementedError\n    def _get_cache_key(self) -> str:",
+        "detail": "pytoweb.async_components",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncRenderer",
+        "kind": 6,
+        "importPath": "pytoweb.async_components",
+        "description": "pytoweb.async_components",
+        "peekOfCode": "class AsyncRenderer:\n    \"\"\"Asynchronous component renderer\"\"\"\n    def __init__(self, concurrency: int = 10):\n        self.concurrency = concurrency\n        self._semaphore = asyncio.Semaphore(concurrency)\n        self._cache = ComponentCache()\n    async def render_component(self, component: AsyncComponent) -> Component:\n        \"\"\"Render component with concurrency control\"\"\"\n        async with self._semaphore:\n            return await component.get_rendered_component()",
+        "detail": "pytoweb.async_components",
+        "documentation": {}
+    },
+    {
+        "label": "Suspense",
+        "kind": 6,
+        "importPath": "pytoweb.async_components",
+        "description": "pytoweb.async_components",
+        "peekOfCode": "class Suspense(AsyncComponent):\n    \"\"\"Component for handling async loading states\"\"\"\n    def __init__(self,\n                 component: AsyncComponent,\n                 fallback: Optional[Component] = None,\n                 error_fallback: Optional[Component] = None):\n        super().__init__()\n        self.set_prop('component', component)\n        self.set_prop('fallback', fallback or self._default_fallback())\n        self.set_prop('error_fallback', error_fallback or self._default_error())",
+        "detail": "pytoweb.async_components",
+        "documentation": {}
+    },
+    {
+        "label": "ErrorBoundary",
+        "kind": 6,
+        "importPath": "pytoweb.async_components",
+        "description": "pytoweb.async_components",
+        "peekOfCode": "class ErrorBoundary(Component):\n    \"\"\"Component for handling errors in child components\"\"\"\n    def __init__(self,\n                 children: list[Component],\n                 fallback: Optional[Callable[[Exception], Component]] = None):\n        super().__init__()\n        self.set_prop('children', children)\n        self.set_prop('fallback', fallback or self._default_fallback)\n        self.state.update({\n            'error': None,",
+        "detail": "pytoweb.async_components",
+        "documentation": {}
+    },
+    {
+        "label": "T",
+        "kind": 5,
+        "importPath": "pytoweb.async_components",
+        "description": "pytoweb.async_components",
+        "peekOfCode": "T = TypeVar('T')\nclass ComponentCache:\n    \"\"\"LRU cache for component rendering results\"\"\"\n    def __init__(self, maxsize: int = 128):\n        self.maxsize = maxsize\n        self._cache: Dict[str, tuple[Any, float]] = {}\n        self._access_times: Dict[str, float] = {}\n    def get(self, key: str) -> Optional[Any]:\n        \"\"\"Get item from cache\"\"\"\n        if key in self._cache:",
+        "detail": "pytoweb.async_components",
+        "documentation": {}
+    },
+    {
+        "label": "ComponentCache",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):\n        if not hasattr(self, 'initialized'):\n            self._cache: OrderedDict[str, Any] = OrderedDict()",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Component",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Component:\n    \"\"\"所有组件的基类\"\"\"\n    def __init__(self):\n        self.props: PropDict = {}\n        self.state: StateDict = {}\n        self.children: ComponentList = []\n        self.parent: Optional['Component'] = None\n        self.style = Style()\n        self.tag_name = \"div\"  # 默认标签\n        self._cache = ComponentCache()",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Button",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Button(Component):\n    \"\"\"预构建的Button组件\"\"\"\n    def __init__(self, text: str, on_click: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"button\"\n        self.set_prop('text', text)\n        if on_click:\n            self.set_prop('on_click', on_click)\n    def render(self) -> Element:\n        button = Element(self.tag_name, text=self.props['text'])",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Container",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Container(Component):\n    \"\"\"预构建的Container组件\"\"\"\n    def __init__(self, *children: Component):\n        super().__init__()\n        for child in children:\n            self.add_child(child)\n    def render(self) -> Element:\n        container = Element(self.tag_name)\n        for child in self.children:\n            container.add(child.render())",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Input",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Input(Component):\n    \"\"\"预构建的Input组件\"\"\"\n    def __init__(self, placeholder: str = \"\", value: str = \"\", on_change: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"input\"\n        self.set_prop('placeholder', placeholder)\n        self.set_prop('value', value)\n        if on_change:\n            self.set_prop('on_change', on_change)\n    def render(self) -> Element:",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Form",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Form(Component):\n    \"\"\"预构建的Form组件\"\"\"\n    def __init__(self, on_submit: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"form\"\n        if on_submit:\n            self.set_prop('on_submit', on_submit)\n    def render(self) -> Element:\n        form = Element(self.tag_name)\n        if 'on_submit' in self.props:",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Text(Component):\n    \"\"\"文本组件\"\"\"\n    def __init__(self, text: str, tag: str = \"span\"):\n        super().__init__()\n        self.tag_name = tag\n        self.set_prop('text', text)\n    def render(self) -> Element:\n        return Element(self.tag_name, text=self.text)\nclass Image(Component):\n    \"\"\"图像组件\"\"\"",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Image(Component):\n    \"\"\"图像组件\"\"\"\n    def __init__(self, src: str, alt: str = \"\", width: str = \"\", height: str = \"\"):\n        super().__init__()\n        self.tag_name = \"img\"\n        self.set_prop('src', src)\n        self.set_prop('alt', alt)\n        if width:\n            self.set_prop('width', width)\n        if height:",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Link",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Link(Component):\n    \"\"\"链接组件\"\"\"\n    def __init__(self, href: str, text: str = \"\", target: str = \"_self\"):\n        super().__init__()\n        self.tag_name = \"a\"\n        self.set_prop('href', href)\n        self.set_prop('text', text)\n        self.set_prop('target', target)\n    def render(self) -> Element:\n        link = Element(self.tag_name, text=self.text)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class List(Component):\n    \"\"\"列表组件\"\"\"\n    def __init__(self, items: list[str] | None = None, ordered: bool = False):\n        super().__init__()\n        self.tag_name = \"ol\" if ordered else \"ul\"\n        self.set_prop('items', items or [])\n    def add_item(self, item: str):\n        if 'items' not in self.props:\n            self.props['items'] = []\n        self.props['items'].append(item)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Card(Component):\n    \"\"\"卡片组件\"\"\"\n    def __init__(self, title: str = \"\", body: str = \"\", footer: str = \"\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('title', title)\n        self.set_prop('body', body)\n        self.set_prop('footer', footer)\n    def render(self) -> Element:\n        card = Element(self.tag_name)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Grid",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Grid(Component):\n    \"\"\"网格布局组件\"\"\"\n    def __init__(self, columns: int = 12, gap: str = \"1rem\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('columns', columns)\n        self.set_prop('gap', gap)\n        self.style.add(\n            display=\"grid\",\n            grid_template_columns=f\"repeat({columns}, 1fr)\",",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Select",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Select(Component):\n    \"\"\"选择组件\"\"\"\n    def __init__(self, options: OptionsType, value: str = \"\", on_change: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"select\"\n        self.set_prop('options', options)\n        self.set_prop('value', value)\n        if on_change:\n            self.set_prop('on_change', on_change)\n    def render(self) -> Element:",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Checkbox",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Checkbox(Component):\n    \"\"\"复选框组件\"\"\"\n    def __init__(self, label: str = \"\", checked: bool = False, on_change: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"input\"\n        self.set_prop('type', 'checkbox')\n        self.set_prop('label', label)\n        self.set_prop('checked', checked)\n        if on_change:\n            self.set_prop('on_change', on_change)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Radio",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Radio(Component):\n    \"\"\"单选框组件\"\"\"\n    def __init__(self, name: str, value: str, label: str = \"\", checked: bool = False, on_change: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"input\"\n        self.set_prop('type', 'radio')\n        self.set_prop('name', name)\n        self.set_prop('value', value)\n        self.set_prop('label', label)\n        self.set_prop('checked', checked)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "TextArea",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class TextArea(Component):\n    \"\"\"文本域组件\"\"\"\n    def __init__(self, value: str = \"\", placeholder: str = \"\", rows: int = 3, on_change: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"textarea\"\n        self.set_prop('value', value)\n        self.set_prop('placeholder', placeholder)\n        self.set_prop('rows', rows)\n        if on_change:\n            self.set_prop('on_change', on_change)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Navbar",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Navbar(Component):\n    \"\"\"导航栏组件\"\"\"\n    def __init__(self, brand: str = \"\", items: list[dict[str, str]] = None, theme: str = \"light\"):\n        super().__init__()\n        self.tag_name = \"nav\"\n        self.set_prop('brand', brand)\n        self.set_prop('items', items or [])\n        self.set_prop('theme', theme)\n        self.style.add(\n            display=\"flex\",",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Flex",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Flex(Component):\n    \"\"\"Flexbox容器组件\"\"\"\n    def __init__(self, direction: str = \"row\", justify: str = \"flex-start\", align: str = \"stretch\", wrap: bool = False, gap: str = \"0\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.style.add(\n            display=\"flex\",\n            flex_direction=direction,\n            justify_content=justify,\n            align_items=align,",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Modal",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Modal(Component):\n    \"\"\"模态对话框组件\"\"\"\n    def __init__(self, content: str, title: str = \"\", show_close: bool = True):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('content', content)\n        self.set_prop('title', title)\n        self.set_prop('show_close', show_close)\n    def render(self) -> Element:\n        close_button = '<span class=\"modal-close\">&times;</span>' if self.show_close else ''",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Toast",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Toast(Component):\n    \"\"\"吐司通知组件\"\"\"\n    def __init__(self, message: str, type: str = \"info\", duration: int = 3000):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('message', message)\n        self.set_prop('type', type)\n        self.set_prop('duration', duration)\n    def render(self) -> Element:\n        return f\"\"\"",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Tabs",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Tabs(Component):\n    \"\"\"选项卡组件\"\"\"\n    def __init__(self, tabs: list[dict[str, str]]):\n        \"\"\"\n        初始化选项卡组件\n        tabs: 选项卡列表，每个选项卡是一个字典，包含'label'和'content'键\n        \"\"\"\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('tabs', tabs)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "DatePicker",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class DatePicker(Component):\n    \"\"\"日期选择器组件\"\"\"\n    def __init__(self, value: str = \"\", format: str = \"YYYY-MM-DD\", \n                 min_date: str = None, max_date: str = None,\n                 on_change: Optional[Callable] = None):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('value', value)\n        self.set_prop('format', format)\n        self.set_prop('min_date', min_date)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Table",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Table(Component):\n    \"\"\"表格组件\"\"\"\n    def __init__(self, columns: list[dict[str, str]], data: list[dict[str, Any]],\n                 sortable: bool = True, filterable: bool = True,\n                 page_size: int = 10):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('columns', columns)  # [{\"key\": \"id\", \"title\": \"ID\"}, ...]\n        self.set_prop('data', data)\n        self.set_prop('sortable', sortable)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Tree",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Tree(Component):\n    \"\"\"树形组件\"\"\"\n    def __init__(self, data: list[dict[str, Any]], expanded: bool = False):\n        \"\"\"\n        初始化树形组件\n        data: 树形数据，每个节点是一个字典，包含'id'、'label'、'children'等键\n        \"\"\"\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('data', data)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Responsive",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Responsive(Component):\n    \"\"\"响应式容器组件\"\"\"\n    breakpoints = {\n        'sm': '576px',\n        'md': '768px',\n        'lg': '992px',\n        'xl': '1200px',\n        'xxl': '1400px'\n    }\n    def __init__(self):",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Skeleton",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Skeleton(Component):\n    \"\"\"骨架屏组件\"\"\"\n    def __init__(self, type: str = \"text\", rows: int = 1, height: str = \"1rem\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('type', type)\n        self.set_prop('rows', rows)\n        self.set_prop('height', height)\n        self.style.add(\n            background=\"linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)\",",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Carousel",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Carousel(Component):\n    \"\"\"幻灯片组件\"\"\"\n    def __init__(self, images: list[dict[str, str]], auto_play: bool = True, interval: int = 3000):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('images', images)  # [{\"src\": \"...\", \"alt\": \"...\"}]\n        self.set_prop('auto_play', auto_play)\n        self.set_prop('interval', interval)\n        self.state['current_index'] = 0\n        self.style.add(",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Drawer",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Drawer(Component):\n    \"\"\"抽屉组件\"\"\"\n    def __init__(self, content: Component, position: str = \"left\", width: str = \"300px\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('content', content)\n        self.set_prop('position', position)\n        self.set_prop('width', width)\n        self.state['visible'] = False\n        self.style.add(",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Progress",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Progress(Component):\n    \"\"\"进度条组件\"\"\"\n    def __init__(self, value: int = 0, max: int = 100, type: str = \"bar\", color: str = \"#007bff\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('value', value)\n        self.set_prop('max', max)\n        self.set_prop('type', type)\n        self.set_prop('color', color)\n        self.style.add(",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Tooltip",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Tooltip(Component):\n    \"\"\"提示框组件\"\"\"\n    def __init__(self, content: str, position: str = \"top\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('content', content)\n        self.set_prop('position', position)\n        self.style.add(\n            position=\"relative\",\n            display=\"inline-block\"",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "Badge",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class Badge(Component):\n    \"\"\"徽章组件\"\"\"\n    def __init__(self, text: str, type: str = \"primary\", pill: bool = False):\n        super().__init__()\n        self.tag_name = \"span\"\n        self.set_prop('text', text)\n        self.set_prop('type', type)\n        self.set_prop('pill', pill)\n        self.style.add(\n            display=\"inline-block\",",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "ModernModal",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class ModernModal(Component):\n    \"\"\"现代模态对话框组件\"\"\"\n    def __init__(self,\n                 title: str,\n                 content: str,\n                 size: str = \"md\",\n                 centered: bool = True,\n                 closable: bool = True):\n        super().__init__()\n        self.tag_name = \"div\"",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "ModernTabs",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class ModernTabs(Component):\n    \"\"\"现代选项卡组件\"\"\"\n    def __init__(self,\n                 tabs: list[dict[str, Any]],\n                 active_index: int = 0,\n                 variant: str = \"default\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('tabs', tabs)\n        self.set_prop('variant', variant)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "ModernAccordion",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class ModernAccordion(Component):\n    \"\"\"现代手风琴组件\"\"\"\n    def __init__(self,\n                 items: list[dict[str, Any]],\n                 multiple: bool = False):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('items', items)\n        self.set_prop('multiple', multiple)\n        self.state.update({",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "ModernToast",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class ModernToast(Component):\n    \"\"\"现代吐司通知组件\"\"\"\n    def __init__(self,\n                 message: str,\n                 type: str = \"info\",\n                 duration: int = 3000,\n                 position: str = \"bottom-right\"):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('message', message)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "VirtualList",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class VirtualList(Component):\n    \"\"\"虚拟滚动列表组件\"\"\"\n    def __init__(self, \n                 items: list[Any],\n                 item_height: int = 40,\n                 viewport_height: int = 400,\n                 overscan: int = 3,\n                 render_item: Callable[[Any], Component] | None = None):\n        super().__init__()\n        self.tag_name = \"div\"",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "DraggableList",
+        "kind": 6,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "class DraggableList(Component):\n    \"\"\"可拖放的列表组件\"\"\"\n    def __init__(self, \n                 items: list[Any],\n                 render_item: Callable[[Any], Component] | None = None,\n                 on_reorder: Optional[Callable[[list[Any]], None]] = None):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('items', items)\n        self.set_prop('render_item', render_item or self._default_render_item)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# 类型别名\nT = TypeVar('T')\nOptionsType = List[Dict[str, str]]\nEventHandler = Callable[..., None]\nComponentList = List['Component']\nPropDict = Dict[str, Any]\nStateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "T",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "T = TypeVar('T')\nOptionsType = List[Dict[str, str]]\nEventHandler = Callable[..., None]\nComponentList = List['Component']\nPropDict = Dict[str, Any]\nStateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "OptionsType",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "OptionsType = List[Dict[str, str]]\nEventHandler = Callable[..., None]\nComponentList = List['Component']\nPropDict = Dict[str, Any]\nStateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "EventHandler",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "EventHandler = Callable[..., None]\nComponentList = List['Component']\nPropDict = Dict[str, Any]\nStateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "ComponentList",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "ComponentList = List['Component']\nPropDict = Dict[str, Any]\nStateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "PropDict",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "PropDict = Dict[str, Any]\nStateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "StateDict",
+        "kind": 5,
+        "importPath": "pytoweb.components",
+        "description": "pytoweb.components",
+        "peekOfCode": "StateDict = Dict[str, Any]\nclass ComponentCache:\n    \"\"\"组件缓存系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):\n        if not hasattr(self, 'initialized'):",
+        "detail": "pytoweb.components",
+        "documentation": {}
+    },
+    {
+        "label": "PytoWeb",
+        "kind": 6,
+        "importPath": "pytoweb.core",
+        "description": "pytoweb.core",
+        "peekOfCode": "class PytoWeb:\n    \"\"\"Main PytoWeb framework class\"\"\"\n    def __init__(self):\n        self.state_manager = StateManager()\n        self.event_bridge = EventBridge()\n        self.theme = Theme()\n        ThemeProvider.set_theme(self.theme)\n    def create_app(self, root_component: Type[Component], props: Dict[str, Any] = None) -> str:\n        \"\"\"Create a new PytoWeb application\"\"\"\n        # Initialize root component",
+        "detail": "pytoweb.core",
+        "documentation": {}
+    },
+    {
+        "label": "PerformanceMetric",
+        "kind": 6,
+        "importPath": "pytoweb.devtools",
+        "description": "pytoweb.devtools",
+        "peekOfCode": "class PerformanceMetric:\n    \"\"\"Performance metric data structure.\"\"\"\n    component_id: str\n    render_time: float\n    memory_usage: int\n    cpu_usage: float\n    timestamp: float\nclass HotReloader(FileSystemEventHandler):\n    \"\"\"Hot reload system with enhanced features.\"\"\"\n    def __init__(self, app, watch_dirs: List[str]):",
+        "detail": "pytoweb.devtools",
+        "documentation": {}
+    },
+    {
+        "label": "HotReloader",
+        "kind": 6,
+        "importPath": "pytoweb.devtools",
+        "description": "pytoweb.devtools",
+        "peekOfCode": "class HotReloader(FileSystemEventHandler):\n    \"\"\"Hot reload system with enhanced features.\"\"\"\n    def __init__(self, app, watch_dirs: List[str]):\n        self.app = app\n        self.watch_dirs = watch_dirs\n        self.observer = Observer()\n        self.last_reload = 0\n        self.reload_delay = 1.0\n        self.file_cache = {}\n        self.ignored_patterns = ['.git', '__pycache__', '*.pyc']",
+        "detail": "pytoweb.devtools",
+        "documentation": {}
+    },
+    {
+        "label": "DebugTool",
+        "kind": 6,
+        "importPath": "pytoweb.devtools",
+        "description": "pytoweb.devtools",
+        "peekOfCode": "class DebugTool:\n    \"\"\"Enhanced debug tool for components.\"\"\"\n    def __init__(self):\n        self.components: Dict[str, Any] = {}\n        self.events: List[Dict[str, Any]] = []\n        self.breakpoints: Set[str] = set()\n        self.logs: List[Dict[str, Any]] = []\n        self.error_stack: List[Dict[str, Any]] = []\n        self.state_history: List[Dict[str, Any]] = []\n    def log_component(self, component_id: str, data: Dict[str, Any]):",
+        "detail": "pytoweb.devtools",
+        "documentation": {}
+    },
+    {
+        "label": "PerformanceMonitor",
+        "kind": 6,
+        "importPath": "pytoweb.devtools",
+        "description": "pytoweb.devtools",
+        "peekOfCode": "class PerformanceMonitor:\n    \"\"\"Enhanced performance monitoring system.\"\"\"\n    def __init__(self):\n        self.metrics: List[PerformanceMetric] = []\n        self.renders: Dict[str, float] = {}\n        self.events: Dict[str, List[float]] = {}\n        self.memory: List[Dict[str, Any]] = []\n        self.process = psutil.Process()\n        self.monitoring = False\n        self._monitor_thread = None",
+        "detail": "pytoweb.devtools",
+        "documentation": {}
+    },
+    {
+        "label": "Element",
+        "kind": 6,
+        "importPath": "pytoweb.elements",
+        "description": "pytoweb.elements",
+        "peekOfCode": "class Element:\n    \"\"\"Base class for all HTML elements\"\"\"\n    def __init__(self, tag: str, text: str = \"\", **attributes):\n        self.tag = tag\n        self.text = text\n        self.attributes = attributes\n        self.children: List[Element] = []\n        self.style_rules: Dict[str, str] = {}\n        self.events: Dict[str, Callable] = {}\n    def style(self, **styles) -> 'Element':",
+        "detail": "pytoweb.elements",
+        "documentation": {}
+    },
+    {
+        "label": "ErrorContext",
+        "kind": 6,
+        "importPath": "pytoweb.error_handling",
+        "description": "pytoweb.error_handling",
+        "peekOfCode": "class ErrorContext:\n    \"\"\"Context information for an error.\"\"\"\n    component: Optional[str] = None\n    function: Optional[str] = None\n    line_number: Optional[int] = None\n    file_path: Optional[str] = None\n    stack_trace: Optional[str] = None\n    additional_info: Dict[str, Any] = None\n@dataclass\nclass ErrorReport:",
+        "detail": "pytoweb.error_handling",
+        "documentation": {}
+    },
+    {
+        "label": "ErrorReport",
+        "kind": 6,
+        "importPath": "pytoweb.error_handling",
+        "description": "pytoweb.error_handling",
+        "peekOfCode": "class ErrorReport:\n    \"\"\"Detailed error report.\"\"\"\n    error_type: str\n    message: str\n    context: ErrorContext\n    timestamp: datetime\n    severity: str\n    handled: bool\nclass ErrorBoundary:\n    \"\"\"Error boundary for components.\"\"\"",
+        "detail": "pytoweb.error_handling",
+        "documentation": {}
+    },
+    {
+        "label": "ErrorBoundary",
+        "kind": 6,
+        "importPath": "pytoweb.error_handling",
+        "description": "pytoweb.error_handling",
+        "peekOfCode": "class ErrorBoundary:\n    \"\"\"Error boundary for components.\"\"\"\n    def __init__(self, fallback_component=None):\n        self.fallback_component = fallback_component\n        self.has_error = False\n        self.error: Optional[Exception] = None\n        self.error_info: Optional[ErrorContext] = None\n    @contextmanager\n    def catch(self):\n        \"\"\"Context manager for catching errors.\"\"\"",
+        "detail": "pytoweb.error_handling",
+        "documentation": {}
+    },
+    {
+        "label": "ErrorHandler",
+        "kind": 6,
+        "importPath": "pytoweb.error_handling",
+        "description": "pytoweb.error_handling",
+        "peekOfCode": "class ErrorHandler:\n    \"\"\"Central error handling system.\"\"\"\n    _instance = None\n    def __init__(self):\n        self.error_listeners: List[Callable[[ErrorReport], None]] = []\n        self.error_history: List[ErrorReport] = []\n        self.max_history = 100\n        self.logger = logging.getLogger('pytoweb.errors')\n    @classmethod\n    def get_instance(cls):",
+        "detail": "pytoweb.error_handling",
+        "documentation": {}
+    },
+    {
+        "label": "error_boundary",
+        "kind": 2,
+        "importPath": "pytoweb.error_handling",
+        "description": "pytoweb.error_handling",
+        "peekOfCode": "def error_boundary(fallback_component=None):\n    \"\"\"Decorator to create an error boundary.\"\"\"\n    def decorator(component_class):\n        original_render = component_class.render\n        def wrapped_render(self, *args, **kwargs):\n            boundary = ErrorBoundary(fallback_component)\n            with boundary.catch():\n                return original_render(self, *args, **kwargs)\n            return boundary.render()\n        component_class.render = wrapped_render",
+        "detail": "pytoweb.error_handling",
+        "documentation": {}
+    },
+    {
+        "label": "Event",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class Event:\n    \"\"\"事件基类\"\"\"\n    def __init__(self, event_type: EventType, target: Any, data: EventData | None = None):\n        self.type = event_type\n        self.target = target\n        self.data = data or {}\n        self.timestamp = time.time()\n        self.propagation_stopped = False\n        self.default_prevented = False\n    def stop_propagation(self):",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventHandler",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class EventHandler:\n    \"\"\"事件处理器\"\"\"\n    def __init__(self, \n                 callback: Callable[[Event], None],\n                 once: bool = False,\n                 capture: bool = False,\n                 passive: bool = False):\n        self.callback = callback\n        self.once = once\n        self.capture = capture",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventBridge",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class EventBridge:\n    \"\"\"Python和JavaScript事件桥接器\"\"\"\n    _handlers: Dict[str, Callable] = {}\n    _js_code = \"\"\"\n    window.pytoweb = {\n        handlers: {},\n        handleEvent: function(handlerId, event) {\n            // 发送事件数据到Python\n            const eventData = {\n                type: event.type,",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventDelegate",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class EventDelegate:\n    \"\"\"事件委托类\"\"\"\n    def __init__(self):\n        self._handlers: list[HandlerType] = []\n        self._logger = logging.getLogger(__name__)\n    def add(self, handler: HandlerType):\n        \"\"\"添加事件处理器\"\"\"\n        if handler not in self._handlers:\n            self._handlers.append(handler)\n    def remove(self, handler: HandlerType):",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventEmitter",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class EventEmitter:\n    \"\"\"增强的事件发射器，支持事件委托和批处理\"\"\"\n    def __init__(self):\n        self._handlers: dict[str, list[EventHandler]] = defaultdict(list)\n        self._delegate_handlers: dict[str, dict[str, list[EventHandler]]] = defaultdict(lambda: defaultdict(list))\n        self._batch_handlers: dict[str, list[Callable[[list[Event]], None]]] = defaultdict(list)\n        self._batch_queue: dict[str, list[Event]] = defaultdict(list)\n        self._batch_timeout = 16.67  # ~60fps\n        self._logger = logging.getLogger(__name__)\n    def on(self, event_type: str, callback: Callable[[Event], None], selector: str | None = None, **options):",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventManager",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class EventManager:\n    \"\"\"全局事件管理系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):\n        if not hasattr(self, 'initialized'):\n            self.emitter = EventEmitter()",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "StateManager",
+        "kind": 6,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "class StateManager:\n    \"\"\"状态管理系统\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):\n        if not hasattr(self, 'initialized'):\n            self._state: dict[str, Any] = {}",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# 类型别名\nT = TypeVar('T')\nEventType = str\nHandlerType = Callable[..., None]\nEventData = Dict[str, Any]\nclass Event:\n    \"\"\"事件基类\"\"\"\n    def __init__(self, event_type: EventType, target: Any, data: EventData | None = None):\n        self.type = event_type",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "T",
+        "kind": 5,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "T = TypeVar('T')\nEventType = str\nHandlerType = Callable[..., None]\nEventData = Dict[str, Any]\nclass Event:\n    \"\"\"事件基类\"\"\"\n    def __init__(self, event_type: EventType, target: Any, data: EventData | None = None):\n        self.type = event_type\n        self.target = target\n        self.data = data or {}",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventType",
+        "kind": 5,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "EventType = str\nHandlerType = Callable[..., None]\nEventData = Dict[str, Any]\nclass Event:\n    \"\"\"事件基类\"\"\"\n    def __init__(self, event_type: EventType, target: Any, data: EventData | None = None):\n        self.type = event_type\n        self.target = target\n        self.data = data or {}\n        self.timestamp = time.time()",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "HandlerType",
+        "kind": 5,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "HandlerType = Callable[..., None]\nEventData = Dict[str, Any]\nclass Event:\n    \"\"\"事件基类\"\"\"\n    def __init__(self, event_type: EventType, target: Any, data: EventData | None = None):\n        self.type = event_type\n        self.target = target\n        self.data = data or {}\n        self.timestamp = time.time()\n        self.propagation_stopped = False",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventData",
+        "kind": 5,
+        "importPath": "pytoweb.events",
+        "description": "pytoweb.events",
+        "peekOfCode": "EventData = Dict[str, Any]\nclass Event:\n    \"\"\"事件基类\"\"\"\n    def __init__(self, event_type: EventType, target: Any, data: EventData | None = None):\n        self.type = event_type\n        self.target = target\n        self.data = data or {}\n        self.timestamp = time.time()\n        self.propagation_stopped = False\n        self.default_prevented = False",
+        "detail": "pytoweb.events",
+        "documentation": {}
+    },
+    {
+        "label": "Grid",
+        "kind": 6,
+        "importPath": "pytoweb.layouts",
+        "description": "pytoweb.layouts",
+        "peekOfCode": "class Grid(Container):\n    \"\"\"Grid layout component\"\"\"\n    def __init__(self, columns: int = 12, gap: str = '1rem'):\n        super().__init__()\n        self.columns = columns\n        self.gap = gap\n    def render(self) -> Element:\n        container = Element('div')\n        container.style(\n            display='grid',",
+        "detail": "pytoweb.layouts",
+        "documentation": {}
+    },
+    {
+        "label": "Flex",
+        "kind": 6,
+        "importPath": "pytoweb.layouts",
+        "description": "pytoweb.layouts",
+        "peekOfCode": "class Flex(Container):\n    \"\"\"Flexbox layout component\"\"\"\n    def __init__(self, direction: str = 'row', justify: str = 'flex-start', \n                 align: str = 'stretch', wrap: str = 'nowrap'):\n        super().__init__()\n        self.direction = direction\n        self.justify = justify\n        self.align = align\n        self.wrap = wrap\n    def render(self) -> Element:",
+        "detail": "pytoweb.layouts",
+        "documentation": {}
+    },
+    {
+        "label": "Responsive",
+        "kind": 6,
+        "importPath": "pytoweb.layouts",
+        "description": "pytoweb.layouts",
+        "peekOfCode": "class Responsive(Container):\n    \"\"\"Responsive layout component\"\"\"\n    def __init__(self, breakpoints: Dict[str, str] = None):\n        super().__init__()\n        self.breakpoints = breakpoints or {\n            'sm': '576px',\n            'md': '768px',\n            'lg': '992px',\n            'xl': '1200px'\n        }",
+        "detail": "pytoweb.layouts",
+        "documentation": {}
+    },
+    {
+        "label": "LazyImage",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_components",
+        "description": "pytoweb.lazy_components",
+        "peekOfCode": "class LazyImage(Component):\n    \"\"\"Image component with lazy loading capability\"\"\"\n    def __init__(self, \n                 src: str,\n                 alt: str = \"\",\n                 placeholder: str = \"\",\n                 threshold: float = 0.1):\n        super().__init__()\n        self.tag_name = \"img\"\n        self.set_prop('data-src', src)",
+        "detail": "pytoweb.lazy_components",
+        "documentation": {}
+    },
+    {
+        "label": "InfiniteScroll",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_components",
+        "description": "pytoweb.lazy_components",
+        "peekOfCode": "class InfiniteScroll(Component):\n    \"\"\"Infinite scrolling container component\"\"\"\n    def __init__(self,\n                 load_more: Callable[[], List[Any]],\n                 render_item: Callable[[Any], Component],\n                 threshold: int = 200,\n                 loading_component: Optional[Component] = None):\n        super().__init__()\n        self.tag_name = \"div\"\n        self.set_prop('load_more', load_more)",
+        "detail": "pytoweb.lazy_components",
+        "documentation": {}
+    },
+    {
+        "label": "ComponentLoadError",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class ComponentLoadError(Exception):\n    \"\"\"组件加载错误\"\"\"\n    pass\nclass ResourceMetadata:\n    \"\"\"资源元数据\"\"\"\n    def __init__(self,\n                 path: str,\n                 type: str,\n                 size: int,\n                 priority: int = 0,",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "ResourceMetadata",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class ResourceMetadata:\n    \"\"\"资源元数据\"\"\"\n    def __init__(self,\n                 path: str,\n                 type: str,\n                 size: int,\n                 priority: int = 0,\n                 dependencies: List[str] = None):\n        self.path = path\n        self.type = type",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "LRUCache",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class LRUCache:\n    \"\"\"LRU缓存实现\"\"\"\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = OrderedDict()\n    def get(self, key: str) -> Any:\n        if key not in self.cache:\n            return None\n        self.cache.move_to_end(key)\n        return self.cache[key]",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "LazyComponentLoader",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class LazyComponentLoader:\n    \"\"\"延迟加载组件的加载器类。\n    该类实现了组件的延迟加载机制，通过缓存和异步加载提高性能。\n    Args:\n        cache_size: 缓存大小，默认为100\n    \"\"\"\n    _instance = None\n    def __new__(cls, *args, **kwargs):\n        if not cls._instance:\n            cls._instance = super().__new__(cls)",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "LazyImage",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class LazyImage(Component):\n    \"\"\"支持延迟加载的图片组件。\n    Args:\n        src: 图片源URL\n        alt: 替代文本\n        placeholder: 占位图片URL\n        threshold: 可见性阈值\n    \"\"\"\n    def __init__(self, \n                 src: str,",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "InfiniteScroll",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class InfiniteScroll(Component):\n    \"\"\"无限滚动容器组件。\n    Args:\n        load_more: 加载更多数据的回调函数\n        render_item: 渲染单个项目的回调函数\n        threshold: 触发加载的阈值（像素）\n        loading_component: 加载中显示的组件\n    \"\"\"\n    def __init__(self,\n                 load_more: Callable[[], List[Any]],",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "ResourcePreloader",
+        "kind": 6,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "class ResourcePreloader:\n    \"\"\"资源预加载器\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):\n        if not hasattr(self, 'initialized'):\n            self._preloaded: Dict[str, Any] = {}",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "lazy_component",
+        "kind": 2,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "def lazy_component(priority: int = 0, dependencies: List[str] = None):\n    \"\"\"延迟加载组件的装饰器。\n    Args:\n        priority: 加载优先级\n        dependencies: 依赖的组件列表\n    \"\"\"\n    def decorator(cls):\n        # 获取组件元数据\n        metadata = ResourceMetadata(\n            path=f\"{cls.__module__}.{cls.__name__}\",",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "preload_resources",
+        "kind": 2,
+        "importPath": "pytoweb.lazy_loading",
+        "description": "pytoweb.lazy_loading",
+        "peekOfCode": "def preload_resources(*paths: str):\n    \"\"\"预加载资源的装饰器。\n    Args:\n        paths: 要预加载的资源路径列表\n    \"\"\"\n    def decorator(func):\n        @functools.wraps(func)\n        async def wrapper(*args, **kwargs):\n            # 预加载资源\n            await ResourcePreloader().preload_resources(list(paths))",
+        "detail": "pytoweb.lazy_loading",
+        "documentation": {}
+    },
+    {
+        "label": "VirtualScroll",
+        "kind": 6,
+        "importPath": "pytoweb.optimizations",
+        "description": "pytoweb.optimizations",
+        "peekOfCode": "class VirtualScroll:\n    \"\"\"Virtual scrolling implementation for large lists\"\"\"\n    def __init__(self, items: List[Any], item_height: int = 40, \n                 container_height: int = 400, buffer_size: int = 5):\n        self.items = items\n        self.item_height = item_height\n        self.container_height = container_height\n        self.buffer_size = buffer_size\n        self.scroll_top = 0\n    def get_visible_items(self, scroll_top: int) -> List[Any]:",
+        "detail": "pytoweb.optimizations",
+        "documentation": {}
+    },
+    {
+        "label": "Debounce",
+        "kind": 6,
+        "importPath": "pytoweb.optimizations",
+        "description": "pytoweb.optimizations",
+        "peekOfCode": "class Debounce:\n    \"\"\"防抖装饰器类，用于限制函数调用频率。\n    该类实现了一个防抖机制，确保函数在指定时间内只被调用一次。\n    Args:\n        wait_ms: 等待时间（毫秒）\n    \"\"\"\n    def __init__(self, wait_ms: int = 300):\n        \"\"\"初始化防抖装饰器。\n        Args:\n            wait_ms: 等待时间（毫秒），默认为300ms",
+        "detail": "pytoweb.optimizations",
+        "documentation": {}
+    },
+    {
+        "label": "LazyLoad",
+        "kind": 6,
+        "importPath": "pytoweb.optimizations",
+        "description": "pytoweb.optimizations",
+        "peekOfCode": "class LazyLoad:\n    \"\"\"Lazy loading implementation for components\"\"\"\n    def __init__(self, factory: Callable[[], Any]):\n        self.factory = factory\n        self._instance = None\n    def get_instance(self) -> Any:\n        \"\"\"Get or create component instance\"\"\"\n        if self._instance is None:\n            self._instance = self.factory()\n        return self._instance",
+        "detail": "pytoweb.optimizations",
+        "documentation": {}
+    },
+    {
+        "label": "StateManager",
+        "kind": 6,
+        "importPath": "pytoweb.optimizations",
+        "description": "pytoweb.optimizations",
+        "peekOfCode": "class StateManager:\n    \"\"\"Efficient state management with change detection\"\"\"\n    def __init__(self):\n        self._state: Dict[str, Any] = {}\n        self._listeners: Dict[str, List[Callable]] = {}\n        self._batch_updates = False\n        self._pending_updates: Dict[str, Any] = {}\n    def get(self, key: str) -> Any:\n        \"\"\"Get state value\"\"\"\n        return self._state.get(key)",
+        "detail": "pytoweb.optimizations",
+        "documentation": {}
+    },
+    {
+        "label": "cache_render",
+        "kind": 2,
+        "importPath": "pytoweb.optimizations",
+        "description": "pytoweb.optimizations",
+        "peekOfCode": "def cache_render(component: Any, props: frozenset) -> str:\n    \"\"\"Cache component render results\"\"\"\n    return component.render()\nclass LazyLoad:\n    \"\"\"Lazy loading implementation for components\"\"\"\n    def __init__(self, factory: Callable[[], Any]):\n        self.factory = factory\n        self._instance = None\n    def get_instance(self) -> Any:\n        \"\"\"Get or create component instance\"\"\"",
+        "detail": "pytoweb.optimizations",
+        "documentation": {}
+    },
+    {
+        "label": "Route",
+        "kind": 6,
+        "importPath": "pytoweb.router",
+        "description": "pytoweb.router",
+        "peekOfCode": "class Route:\n    \"\"\"路由定义类\"\"\"\n    path: str\n    handler: Callable\n    methods: List[str] = None\n    name: Optional[str] = None\nclass Router:\n    \"\"\"路由管理器\"\"\"\n    def __init__(self):\n        self.routes: List[Route] = []",
+        "detail": "pytoweb.router",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "kind": 6,
+        "importPath": "pytoweb.router",
+        "description": "pytoweb.router",
+        "peekOfCode": "class Router:\n    \"\"\"路由管理器\"\"\"\n    def __init__(self):\n        self.routes: List[Route] = []\n        self._logger = logging.getLogger(__name__)\n    def add(self, path: str, handler: Callable, methods: List[str] = None, name: str = None):\n        \"\"\"添加路由\"\"\"\n        route = Route(path, handler, methods or ['GET'], name)\n        self.routes.append(route)\n        return self",
+        "detail": "pytoweb.router",
+        "documentation": {}
+    },
+    {
+        "label": "RequestHandler",
+        "kind": 6,
+        "importPath": "pytoweb.server",
+        "description": "pytoweb.server",
+        "peekOfCode": "class RequestHandler(BaseHTTPRequestHandler):\n    \"\"\"HTTP请求处理器\"\"\"\n    def do_GET(self):\n        \"\"\"处理GET请求\"\"\"\n        try:\n            # 解析URL\n            parsed_url = urlparse(self.path)\n            path = parsed_url.path\n            query = parse_qs(parsed_url.query)\n            # 查找路由处理器",
+        "detail": "pytoweb.server",
+        "documentation": {}
+    },
+    {
+        "label": "Server",
+        "kind": 6,
+        "importPath": "pytoweb.server",
+        "description": "pytoweb.server",
+        "peekOfCode": "class Server(HTTPServer):\n    \"\"\"PytoWeb服务器类\"\"\"\n    def __init__(self, host: str = \"localhost\", port: int = 8000):\n        super().__init__((host, port), RequestHandler)\n        self.routes: Dict[str, Callable] = {}\n        self.middleware = []\n        self.static_dir = os.path.join(os.getcwd(), \"static\")\n        self._logger = logging.getLogger(__name__)\n        # 创建静态文件目录\n        if not os.path.exists(self.static_dir):",
+        "detail": "pytoweb.server",
+        "documentation": {}
+    },
+    {
+        "label": "StateChange",
+        "kind": 6,
+        "importPath": "pytoweb.state",
+        "description": "pytoweb.state",
+        "peekOfCode": "class StateChange:\n    \"\"\"Represents a state change event.\"\"\"\n    path: str\n    old_value: Any\n    new_value: Any\nclass Store:\n    \"\"\"Central state store with reactive updates.\"\"\"\n    def __init__(self):\n        self._state = {}\n        self._subscribers = defaultdict(list)",
+        "detail": "pytoweb.state",
+        "documentation": {}
+    },
+    {
+        "label": "Store",
+        "kind": 6,
+        "importPath": "pytoweb.state",
+        "description": "pytoweb.state",
+        "peekOfCode": "class Store:\n    \"\"\"Central state store with reactive updates.\"\"\"\n    def __init__(self):\n        self._state = {}\n        self._subscribers = defaultdict(list)\n        self._lock = threading.Lock()\n    def get(self, path: str, default: Any = None) -> Any:\n        \"\"\"Get state value at path.\"\"\"\n        try:\n            keys = path.split('.')",
+        "detail": "pytoweb.state",
+        "documentation": {}
+    },
+    {
+        "label": "PersistentStore",
+        "kind": 6,
+        "importPath": "pytoweb.state",
+        "description": "pytoweb.state",
+        "peekOfCode": "class PersistentStore(Store):\n    \"\"\"Store with persistence capabilities.\"\"\"\n    def __init__(self, storage_path: str):\n        super().__init__()\n        self.storage_path = storage_path\n        self._load_state()\n    def _load_state(self):\n        \"\"\"Load state from storage.\"\"\"\n        try:\n            with open(self.storage_path, 'r') as f:",
+        "detail": "pytoweb.state",
+        "documentation": {}
+    },
+    {
+        "label": "StateManager",
+        "kind": 6,
+        "importPath": "pytoweb.state",
+        "description": "pytoweb.state",
+        "peekOfCode": "class StateManager:\n    \"\"\"Manages application state and provides reactive updates.\"\"\"\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self, ttl=3600):  # 默认1小时过期\n        if not hasattr(self, 'initialized'):\n            self.store = Store()",
+        "detail": "pytoweb.state",
+        "documentation": {}
+    },
+    {
+        "label": "StyleUnit",
+        "kind": 6,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "class StyleUnit:\n    \"\"\"CSS unit value\"\"\"\n    value: Union[int, float]\n    unit: str = 'px'\n    def __str__(self) -> str:\n        return f\"{self.value}{self.unit}\"\nclass Style:\n    \"\"\"CSS style management class\"\"\"\n    def __init__(self, **styles):\n        self.rules: Dict[str, str] = {}",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "Style",
+        "kind": 6,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "class Style:\n    \"\"\"CSS style management class\"\"\"\n    def __init__(self, **styles):\n        self.rules: Dict[str, str] = {}\n        self.add(**styles)\n    def add(self, **styles) -> 'Style':\n        \"\"\"Add CSS styles\"\"\"\n        for key, value in styles.items():\n            # Convert Python style names to CSS (e.g., font_size -> font-size)\n            css_key = key.replace('_', '-')",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "StyleSystem",
+        "kind": 6,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "class StyleSystem:\n    \"\"\"Modern styling system with advanced features\"\"\"\n    @staticmethod\n    def create_gradient(start_color: str, end_color: str, direction: str = \"to right\") -> str:\n        \"\"\"Create linear gradient\"\"\"\n        return f\"linear-gradient({direction}, {start_color}, {end_color})\"\n    @staticmethod\n    def create_glass_effect(opacity: float = 0.1) -> Dict[str, str]:\n        \"\"\"Create glass morphism effect\"\"\"\n        return {",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "ModernStyle",
+        "kind": 6,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "class ModernStyle(Style):\n    \"\"\"Enhanced style class with modern features\"\"\"\n    def add_glass_effect(self, opacity: float = 0.1):\n        \"\"\"Add glass morphism effect\"\"\"\n        self.add(**StyleSystem.create_glass_effect(opacity))\n        return self\n    def add_neumorphism(self, color: str, type: str = \"flat\"):\n        \"\"\"Add neumorphism effect\"\"\"\n        self.add(**StyleSystem.create_neumorphism(color, type))\n        return self",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "StylePresets",
+        "kind": 6,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "class StylePresets:\n    \"\"\"Predefined modern style presets\"\"\"\n    @staticmethod\n    def button(variant: str = \"primary\", size: str = \"md\") -> Dict[str, str]:\n        \"\"\"Button style preset\"\"\"\n        base_styles = {\n            \"border\": \"none\",\n            \"border_radius\": \"0.375rem\",\n            \"font_weight\": \"500\",\n            \"cursor\": \"pointer\",",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "Styles",
+        "kind": 6,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "class Styles:\n    \"\"\"Predefined styles collection\"\"\"\n    @staticmethod\n    def flex(direction: str = 'row', justify: str = 'flex-start', align: str = 'stretch',\n             wrap: bool = False) -> Style:\n        \"\"\"Create flex container style\"\"\"\n        return Style(\n            display='flex',\n            flex_direction=direction,\n            justify_content=justify,",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "px",
+        "kind": 2,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "def px(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create pixel unit\"\"\"\n    return StyleUnit(value, 'px')\ndef em(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create em unit\"\"\"\n    return StyleUnit(value, 'em')\ndef rem(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create rem unit\"\"\"\n    return StyleUnit(value, 'rem')\ndef percent(value: Union[int, float]) -> StyleUnit:",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "em",
+        "kind": 2,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "def em(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create em unit\"\"\"\n    return StyleUnit(value, 'em')\ndef rem(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create rem unit\"\"\"\n    return StyleUnit(value, 'rem')\ndef percent(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create percentage unit\"\"\"\n    return StyleUnit(value, '%')\ndef vh(value: Union[int, float]) -> StyleUnit:",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "rem",
+        "kind": 2,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "def rem(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create rem unit\"\"\"\n    return StyleUnit(value, 'rem')\ndef percent(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create percentage unit\"\"\"\n    return StyleUnit(value, '%')\ndef vh(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create viewport height unit\"\"\"\n    return StyleUnit(value, 'vh')\ndef vw(value: Union[int, float]) -> StyleUnit:",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "percent",
+        "kind": 2,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "def percent(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create percentage unit\"\"\"\n    return StyleUnit(value, '%')\ndef vh(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create viewport height unit\"\"\"\n    return StyleUnit(value, 'vh')\ndef vw(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create viewport width unit\"\"\"\n    return StyleUnit(value, 'vw')\n# Predefined styles",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "vh",
+        "kind": 2,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "def vh(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create viewport height unit\"\"\"\n    return StyleUnit(value, 'vh')\ndef vw(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create viewport width unit\"\"\"\n    return StyleUnit(value, 'vw')\n# Predefined styles\nclass Styles:\n    \"\"\"Predefined styles collection\"\"\"\n    @staticmethod",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "vw",
+        "kind": 2,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "def vw(value: Union[int, float]) -> StyleUnit:\n    \"\"\"Create viewport width unit\"\"\"\n    return StyleUnit(value, 'vw')\n# Predefined styles\nclass Styles:\n    \"\"\"Predefined styles collection\"\"\"\n    @staticmethod\n    def flex(direction: str = 'row', justify: str = 'flex-start', align: str = 'stretch',\n             wrap: bool = False) -> Style:\n        \"\"\"Create flex container style\"\"\"",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_STYLES",
+        "kind": 5,
+        "importPath": "pytoweb.styles",
+        "description": "pytoweb.styles",
+        "peekOfCode": "DEFAULT_STYLES = \"\"\"\n.pytoweb-container {\n    width: 100%;\n    margin: 0 auto;\n    padding: 0 16px;\n    box-sizing: border-box;\n}\n.pytoweb-row {\n    display: flex;\n    flex-wrap: wrap;",
+        "detail": "pytoweb.styles",
+        "documentation": {}
+    },
+    {
+        "label": "Theme",
+        "kind": 6,
+        "importPath": "pytoweb.themes",
+        "description": "pytoweb.themes",
+        "peekOfCode": "class Theme:\n    \"\"\"Theme management class\"\"\"\n    def __init__(self, name: str = \"default\"):\n        self.name = name\n        self.tokens = {\n            # Color System\n            \"colors\": {\n                # Brand Colors\n                \"primary\": {\n                    \"main\": \"#1976d2\",",
+        "detail": "pytoweb.themes",
+        "documentation": {}
+    },
+    {
+        "label": "ThemeProvider",
+        "kind": 6,
+        "importPath": "pytoweb.themes",
+        "description": "pytoweb.themes",
+        "peekOfCode": "class ThemeProvider:\n    \"\"\"Theme provider for components\"\"\"\n    _current_theme: Theme = None\n    @classmethod\n    def set_theme(cls, theme: Theme):\n        \"\"\"Set current theme\"\"\"\n        cls._current_theme = theme\n    @classmethod\n    def get_theme(cls) -> Theme:\n        \"\"\"Get current theme\"\"\"",
+        "detail": "pytoweb.themes",
+        "documentation": {}
+    },
+    {
+        "label": "ValidationRule",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class ValidationRule:\n    \"\"\"Base class for validation rules\"\"\"\n    def __init__(self, message: str):\n        self.message = message\n    def validate(self, value: Any) -> bool:\n        raise NotImplementedError\nclass Required(ValidationRule):\n    \"\"\"Required field validation\"\"\"\n    def __init__(self, message: str = \"This field is required\"):\n        super().__init__(message)",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "Required",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class Required(ValidationRule):\n    \"\"\"Required field validation\"\"\"\n    def __init__(self, message: str = \"This field is required\"):\n        super().__init__(message)\n    def validate(self, value: Any) -> bool:\n        if value is None:\n            return False\n        if isinstance(value, str) and not value.strip():\n            return False\n        return True",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "MinLength",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class MinLength(ValidationRule):\n    \"\"\"Minimum length validation\"\"\"\n    def __init__(self, min_length: int, message: str = None):\n        super().__init__(message or f\"Minimum length is {min_length}\")\n        self.min_length = min_length\n    def validate(self, value: str) -> bool:\n        return len(str(value)) >= self.min_length\nclass MaxLength(ValidationRule):\n    \"\"\"Maximum length validation\"\"\"\n    def __init__(self, max_length: int, message: str = None):",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "MaxLength",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class MaxLength(ValidationRule):\n    \"\"\"Maximum length validation\"\"\"\n    def __init__(self, max_length: int, message: str = None):\n        super().__init__(message or f\"Maximum length is {max_length}\")\n        self.max_length = max_length\n    def validate(self, value: str) -> bool:\n        return len(str(value)) <= self.max_length\nclass Pattern(ValidationRule):\n    \"\"\"Pattern validation using regex\"\"\"\n    def __init__(self, pattern: str, message: str = \"Invalid format\"):",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "Pattern",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class Pattern(ValidationRule):\n    \"\"\"Pattern validation using regex\"\"\"\n    def __init__(self, pattern: str, message: str = \"Invalid format\"):\n        super().__init__(message)\n        self.pattern = re.compile(pattern)\n    def validate(self, value: str) -> bool:\n        return bool(self.pattern.match(str(value)))\nclass Email(ValidationRule):\n    \"\"\"Email format validation\"\"\"\n    def __init__(self, message: str = \"Invalid email format\"):",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "Email",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class Email(ValidationRule):\n    \"\"\"Email format validation\"\"\"\n    def __init__(self, message: str = \"Invalid email format\"):\n        super().__init__(message)\n        self.pattern = re.compile(r\"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\")\n    def validate(self, value: str) -> bool:\n        return bool(self.pattern.match(str(value)))\nclass Range(ValidationRule):\n    \"\"\"Numeric range validation\"\"\"\n    def __init__(self, min_value: float = None, max_value: float = None, message: str = None):",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "Range",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class Range(ValidationRule):\n    \"\"\"Numeric range validation\"\"\"\n    def __init__(self, min_value: float = None, max_value: float = None, message: str = None):\n        message = message or f\"Value must be between {min_value} and {max_value}\"\n        super().__init__(message)\n        self.min_value = min_value\n        self.max_value = max_value\n    def validate(self, value: float) -> bool:\n        try:\n            num = float(value)",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "Custom",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class Custom(ValidationRule):\n    \"\"\"Custom validation using a callback function\"\"\"\n    def __init__(self, validator: Callable[[Any], bool], message: str):\n        super().__init__(message)\n        self.validator = validator\n    def validate(self, value: Any) -> bool:\n        return self.validator(value)\nclass FormValidator:\n    \"\"\"Form validation manager\"\"\"\n    def __init__(self):",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "FormValidator",
+        "kind": 6,
+        "importPath": "pytoweb.validation",
+        "description": "pytoweb.validation",
+        "peekOfCode": "class FormValidator:\n    \"\"\"Form validation manager\"\"\"\n    def __init__(self):\n        self.fields: Dict[str, List[ValidationRule]] = {}\n        self.errors: Dict[str, List[str]] = {}\n    def add_field(self, field_name: str, rules: List[ValidationRule]):\n        \"\"\"Add validation rules for a field\"\"\"\n        self.fields[field_name] = rules\n    def validate(self, data: Dict[str, Any]) -> bool:\n        \"\"\"Validate form data\"\"\"",
+        "detail": "pytoweb.validation",
+        "documentation": {}
+    },
+    {
+        "label": "VNode",
+        "kind": 6,
+        "importPath": "pytoweb.vdom",
+        "description": "pytoweb.vdom",
+        "peekOfCode": "class VNode:\n    \"\"\"Virtual DOM Node.\"\"\"\n    def __init__(self, tag: str, props: Dict = None, children: List = None):\n        self.tag = tag\n        self.props = props or {}\n        self.children = children or []\n        self.key = props.get('key') if props else None\n    def __eq__(self, other):\n        if not isinstance(other, VNode):\n            return False",
+        "detail": "pytoweb.vdom",
+        "documentation": {}
+    },
+    {
+        "label": "VDOMDiffer",
+        "kind": 6,
+        "importPath": "pytoweb.vdom",
+        "description": "pytoweb.vdom",
+        "peekOfCode": "class VDOMDiffer:\n    \"\"\"Handles virtual DOM diffing and patching.\"\"\"\n    @staticmethod\n    def diff(old_node: Optional[VNode], new_node: Optional[VNode]) -> List[Dict]:\n        \"\"\"Generate a list of patches based on differences between nodes.\"\"\"\n        patches = []\n        if old_node is None:\n            patches.append({\n                'type': 'CREATE',\n                'node': new_node",
+        "detail": "pytoweb.vdom",
+        "documentation": {}
+    },
+    {
+        "label": "VDOMRenderer",
+        "kind": 6,
+        "importPath": "pytoweb.vdom",
+        "description": "pytoweb.vdom",
+        "peekOfCode": "class VDOMRenderer:\n    \"\"\"Handles rendering virtual DOM to real DOM.\"\"\"\n    _string_pool = {}\n    _pool_size = 1000\n    @staticmethod\n    def _get_pooled_string(s: str) -> str:\n        if s not in VDOMRenderer._string_pool:\n            if len(VDOMRenderer._string_pool) >= VDOMRenderer._pool_size:\n                VDOMRenderer._string_pool.clear()\n            VDOMRenderer._string_pool[s] = s",
+        "detail": "pytoweb.vdom",
+        "documentation": {}
+    },
+    {
+        "label": "WorkerMessage",
+        "kind": 6,
+        "importPath": "pytoweb.workers",
+        "description": "pytoweb.workers",
+        "peekOfCode": "class WorkerMessage:\n    \"\"\"Message passed between main thread and worker.\"\"\"\n    type: str\n    data: Any\n    id: Optional[str] = None\nclass PythonWorker:\n    \"\"\"Python-based worker implementation.\"\"\"\n    def __init__(self, name: str):\n        self.name = name\n        self._running = False",
+        "detail": "pytoweb.workers",
+        "documentation": {}
+    },
+    {
+        "label": "PythonWorker",
+        "kind": 6,
+        "importPath": "pytoweb.workers",
+        "description": "pytoweb.workers",
+        "peekOfCode": "class PythonWorker:\n    \"\"\"Python-based worker implementation.\"\"\"\n    def __init__(self, name: str):\n        self.name = name\n        self._running = False\n        self._thread: Optional[threading.Thread] = None\n        self._message_queue = queue.Queue()\n        self._callbacks: Dict[str, Callable] = {}\n        self._error_handler: Optional[Callable] = None\n    def start(self):",
+        "detail": "pytoweb.workers",
+        "documentation": {}
+    },
+    {
+        "label": "WorkerPool",
+        "kind": 6,
+        "importPath": "pytoweb.workers",
+        "description": "pytoweb.workers",
+        "peekOfCode": "class WorkerPool:\n    \"\"\"Manages a pool of workers.\"\"\"\n    def __init__(self, size: int = 4):\n        self._workers: Dict[str, PythonWorker] = {}\n        self._executor = ThreadPoolExecutor(max_workers=size)\n        self._size = size\n    def create_worker(self, name: str) -> PythonWorker:\n        \"\"\"Create a new worker.\"\"\"\n        if name in self._workers:\n            raise ValueError(f\"Worker '{name}' already exists\")",
+        "detail": "pytoweb.workers",
+        "documentation": {}
+    },
+    {
+        "label": "WorkerDecorators",
+        "kind": 6,
+        "importPath": "pytoweb.workers",
+        "description": "pytoweb.workers",
+        "peekOfCode": "class WorkerDecorators:\n    \"\"\"Decorators for worker functionality.\"\"\"\n    @staticmethod\n    def run_in_worker(worker_name: str):\n        \"\"\"Decorator to run a function in a worker.\"\"\"\n        def decorator(func):\n            def wrapper(*args, **kwargs):\n                worker = WorkerPool().get_worker(worker_name)\n                if not worker:\n                    worker = WorkerPool().create_worker(worker_name)",
+        "detail": "pytoweb.workers",
+        "documentation": {}
+    }
+]
