@@ -2,8 +2,11 @@
 Modern styling system with advanced features
 """
 
-from typing import Dict, Any, List, Optional, Union
+from __future__ import annotations
+from typing import Dict, Any, List, Optional, Union, TypeVar, TYPE_CHECKING
 from dataclasses import dataclass
+
+T = TypeVar('T', bound='Style')
 
 @dataclass
 class StyleUnit:
@@ -14,36 +17,45 @@ class StyleUnit:
     def __str__(self) -> str:
         return f"{self.value}{self.unit}"
 
+class StyleError(Exception):
+    """Style system error"""
+    pass
+
 class Style:
     """CSS style management class"""
     
-    def __init__(self, **styles):
+    def __init__(self, **styles: Any):
         self.rules: Dict[str, str] = {}
         self.add(**styles)
         
-    def add(self, **styles) -> 'Style':
+    def add(self: T, **styles: Any) -> T:
         """Add CSS styles"""
-        for key, value in styles.items():
-            # Convert Python style names to CSS (e.g., font_size -> font-size)
-            css_key = key.replace('_', '-')
-            
-            # Handle StyleUnit objects
-            if isinstance(value, StyleUnit):
-                value = str(value)
-            # Handle color tuples (RGB or RGBA)
-            elif isinstance(value, tuple):
-                if len(value) == 3:
-                    value = f"rgb({value[0]}, {value[1]}, {value[2]})"
-                elif len(value) == 4:
-                    value = f"rgba({value[0]}, {value[1]}, {value[2]}, {value[3]})"
-            # Handle lists (e.g., for multiple background images)
-            elif isinstance(value, list):
-                value = ', '.join(str(v) for v in value)
+        try:
+            for key, value in styles.items():
+                # Convert Python style names to CSS (e.g., font_size -> font-size)
+                css_key = key.replace('_', '-')
                 
-            self.rules[css_key] = str(value)
-        return self
+                # Handle StyleUnit objects
+                if isinstance(value, StyleUnit):
+                    value = str(value)
+                # Handle color tuples (RGB or RGBA)
+                elif isinstance(value, tuple):
+                    if len(value) == 3:
+                        value = f"rgb({value[0]}, {value[1]}, {value[2]})"
+                    elif len(value) == 4:
+                        value = f"rgba({value[0]}, {value[1]}, {value[2]}, {value[3]})"
+                    else:
+                        raise StyleError(f"Invalid color tuple length: {len(value)}")
+                # Handle lists (e.g., for multiple background images)
+                elif isinstance(value, list):
+                    value = ', '.join(str(v) for v in value)
+                    
+                self.rules[css_key] = str(value)
+            return self
+        except Exception as e:
+            raise StyleError(f"Failed to add styles: {e}") from e
         
-    def remove(self, *keys) -> 'Style':
+    def remove(self: T, *keys: str) -> T:
         """Remove CSS styles"""
         for key in keys:
             css_key = key.replace('_', '-')
@@ -61,7 +73,10 @@ class Style:
         
     def to_string(self) -> str:
         """Convert to CSS string"""
-        return '; '.join(f'{k}: {v}' for k, v in self.rules.items())
+        try:
+            return '; '.join(f'{k}: {v}' for k, v in self.rules.items())
+        except Exception as e:
+            raise StyleError(f"Failed to convert style to string: {e}") from e
         
     def to_class_string(self) -> str:
         """Convert to CSS class definition"""
@@ -71,20 +86,22 @@ class Style:
         """Convert to inline style string"""
         return self.to_string()
         
-    def update(self, **styles) -> 'Style':
+    def update(self: T, **styles: Any) -> T:
         """Update CSS styles"""
         return self.add(**styles)
         
-    def merge(self, other: 'Style') -> 'Style':
+    def merge(self: T, other: Style) -> T:
         """Merge with another style"""
-        new_style = Style()
+        if not isinstance(other, Style):
+            raise TypeError("Can only merge with another Style object")
+        new_style = self.__class__()
         new_style.rules.update(self.rules)
         new_style.rules.update(other.rules)
         return new_style
         
-    def clone(self) -> 'Style':
+    def clone(self: T) -> T:
         """Create a copy of this style"""
-        new_style = Style()
+        new_style = self.__class__()
         new_style.rules.update(self.rules)
         return new_style
         
@@ -92,7 +109,7 @@ class Style:
         """Get style value using attribute access"""
         return self.get(name)
         
-    def __add__(self, other: 'Style') -> 'Style':
+    def __add__(self: T, other: Style) -> T:
         """Combine two styles"""
         return self.merge(other)
         
@@ -366,8 +383,8 @@ class StylePresets:
                 "color": "#15803d"
             },
             "warning": {
-                "background": "#fef3c7",
-                "color": "#b45309"
+                "background": "#fff3e0",
+                "color": "#ef6c00"
             },
             "error": {
                 "background": "#fee2e2",

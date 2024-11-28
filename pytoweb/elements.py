@@ -2,65 +2,152 @@
 Core module for HTML element creation and manipulation
 """
 
-from typing import List, Dict, Any, Optional, Callable
+from __future__ import annotations
+from typing import List, Dict, Any, Optional, Callable, Union, TypeVar, TYPE_CHECKING
+from dataclasses import dataclass
 from .styles import Style
+
+T = TypeVar('T', bound='Element')
+
+class ElementError(Exception):
+    """Element creation or manipulation error"""
+    pass
+
+@dataclass
+class EventHandler:
+    """Event handler container"""
+    name: str
+    handler: Callable[..., Any]
+    
+    def __post_init__(self):
+        if not callable(self.handler):
+            raise ElementError("Event handler must be callable")
 
 class Element:
     """Base class for all HTML elements"""
     
-    def __init__(self, tag: str, text: str = "", **attributes):
-        self.tag = tag
-        self.text = text
-        self.attributes = attributes
-        self.children: List[Element] = []
-        self.style_rules: Dict[str, str] = {}
-        self.events: Dict[str, Callable] = {}
-        
-    def style(self, **styles) -> 'Element':
-        """Add CSS styles to the element"""
-        for key, value in styles.items():
-            # Convert Python style names to CSS (e.g., font_size -> font-size)
-            css_key = key.replace('_', '-')
-            self.style_rules[css_key] = value
-        return self
-        
-    def add(self, *children: 'Element') -> 'Element':
-        """Add child elements"""
-        self.children.extend(children)
-        return self
-        
-    def on(self, event: str, handler: Callable) -> 'Element':
-        """Add event handler"""
-        self.events[event] = handler
-        return self
-        
-    def render(self) -> str:
-        """Render element to HTML string"""
-        # Build attributes string
-        attrs = self.attributes.copy()
-        if self.style_rules:
-            style_str = '; '.join(f'{k}: {v}' for k, v in self.style_rules.items())
-            attrs['style'] = style_str
+    VOID_ELEMENTS = {
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+        'link', 'meta', 'param', 'source', 'track', 'wbr'
+    }
+    
+    def __init__(self, tag: str, text: str = "", **attributes: Any):
+        """Initialize element"""
+        try:
+            if not isinstance(tag, str):
+                raise ElementError("Tag must be a string")
+            if not tag:
+                raise ElementError("Tag cannot be empty")
+                
+            self.tag = tag.lower()  # Normalize tag name
+            self.text = str(text)  # Ensure text is string
+            self.attributes: Dict[str, Any] = {}
+            self.children: List[Element] = []
+            self.style = Style()  # Use Style class for style management
+            self.events: Dict[str, EventHandler] = {}
             
-        # Add event handlers
-        for event, handler in self.events.items():
-            attrs[f'on{event}'] = f'pytoweb.handleEvent("{id(handler)}")'
+            # Process attributes
+            for key, value in attributes.items():
+                if value is not None:  # Only add non-None attributes
+                    self.attributes[key] = str(value)
+                    
+        except Exception as e:
+            raise ElementError(f"Failed to initialize element: {e}") from e
             
-        attrs_str = ' '.join(f'{k}="{v}"' for k, v in attrs.items())
-        
-        # Build HTML
-        html = f'<{self.tag}'
-        if attrs_str:
-            html += f' {attrs_str}'
+    def add(self, child: Union[Element, str]) -> T:
+        """Add child element"""
+        try:
+            if isinstance(child, str):
+                child = Element('span', text=child)
+            elif not isinstance(child, Element):
+                raise ElementError("Child must be an Element or string")
+                
+            self.children.append(child)
+            return self
             
-        if self.children or self.text:
-            html += '>'
+        except Exception as e:
+            raise ElementError(f"Failed to add child: {e}") from e
+            
+    def add_child(self, child: Union[Element, str]) -> T:
+        """Alias for add()"""
+        return self.add(child)
+            
+    def to_html(self) -> str:
+        """Convert element to HTML string"""
+        try:
+            print(f"[DEBUG] Converting {self.tag} to HTML")
+            # Start tag
+            html = [f"<{self.tag}"]
+            
+            # Add attributes
+            for key, value in self.attributes.items():
+                html.append(f' {key}="{value}"')
+                
+            # Add style
+            if self.style and self.style.get_all():
+                style_str = '; '.join(f"{k}: {v}" for k, v in self.style.get_all().items())
+                html.append(f' style="{style_str}"')
+                
+            # Close start tag
+            html.append('>')
+            
+            # Add text content
             if self.text:
-                html += self.text
+                html.append(self.text)
+                
+            # Add children
             for child in self.children:
-                html += child.render()
-            html += f'</{self.tag}>'
-        else:
-            html += '/>'
+                try:
+                    child_html = child.to_html()
+                    html.append(child_html)
+                except Exception as e:
+                    print(f"[ERROR] Failed to render child of {self.tag}: {e}")
+                    raise
+                    
+            # Add closing tag if not void element
+            if self.tag not in self.VOID_ELEMENTS:
+                html.append(f"</{self.tag}>")
+                
+            result = ''.join(html)
+            print(f"[DEBUG] Generated HTML for {self.tag}: {result[:100]}...")
+            return result
             
-        return html
+        except Exception as e:
+            print(f"[ERROR] Failed to generate HTML for {self.tag}: {e}")
+            raise ElementError(f"Failed to generate HTML: {e}") from e
+            
+    def __str__(self) -> str:
+        """String representation is HTML"""
+        return self.to_html()
+
+# Convenience functions for creating common elements
+def div(*children: Element, **attrs: Any) -> Element:
+    """Create a div element"""
+    return Element('div', **attrs).add(*children)
+    
+def span(*children: Element, **attrs: Any) -> Element:
+    """Create a span element"""
+    return Element('span', **attrs).add(*children)
+    
+def p(*children: Element, **attrs: Any) -> Element:
+    """Create a paragraph element"""
+    return Element('p', **attrs).add(*children)
+    
+def a(href: str, *children: Element, **attrs: Any) -> Element:
+    """Create an anchor element"""
+    attrs['href'] = href
+    return Element('a', **attrs).add(*children)
+    
+def img(src: str, alt: str = "", **attrs: Any) -> Element:
+    """Create an image element"""
+    attrs.update({'src': src, 'alt': alt})
+    return Element('img', **attrs)
+    
+def button(*children: Element, **attrs: Any) -> Element:
+    """Create a button element"""
+    return Element('button', **attrs).add(*children)
+    
+def input(type: str = "text", **attrs: Any) -> Element:
+    """Create an input element"""
+    attrs['type'] = type
+    return Element('input', **attrs)

@@ -135,6 +135,27 @@ PytoWeb 提供了一系列预构建组件：
    - Tree | 树形结构
    - List | 列表
 
+## Available Components | 可用组件
+
+PytoWeb provides the following built-in components:
+
+- `Button`: Interactive button component
+- `Container`: Layout container component
+- `Text`: Text display component
+- `Link`: Hyperlink component
+- `Image`: Image display component
+- `Grid`: Grid layout component
+- `Flex`: Flexbox layout component
+
+## Animation Effects | 动画效果
+
+PytoWeb supports various built-in animations:
+
+- Fade effects: `FADE_IN`, `FADE_OUT`
+- Slide effects: `SLIDE_IN`, `SLIDE_OUT`, `SLIDE_UP`, `SLIDE_DOWN`
+- Transform effects: `ROTATE`, `SCALE`
+- Special effects: `BOUNCE`, `SHAKE`, `PULSE`, `ELASTIC_IN`, `ELASTIC_OUT`, `SWING`, `WOBBLE`, `ZOOM_IN`, `ZOOM_OUT`
+
 ## Virtual DOM | 虚拟 DOM
 
 PytoWeb uses a virtual DOM implementation for efficient rendering:

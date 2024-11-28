@@ -32,7 +32,7 @@ setup(
     author="PytoWeb Team",
     author_email="example@example.com",
     description="A Python library for creating web interfaces using pure Python",
-    long_description=open("README.md").read(),
+    long_description=open("docs/README.md", encoding='utf-8').read(),
     long_description_content_type="text/markdown",
     url="https://github.com/yourusername/pytoweb",
     classifiers=[

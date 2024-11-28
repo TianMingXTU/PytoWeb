@@ -179,3 +179,23 @@ class VDOMRenderer:
                 attributes.append('{}="{}"'.format(key, str(value).replace('"', "&quot;")))
                 
         return ' ' + ' '.join(attributes) if attributes else ''
+
+    @staticmethod
+    def render_to_string(vnode: Any) -> str:
+        """Render a virtual DOM node to HTML string."""
+        try:
+            if isinstance(vnode, (str, int, float)):
+                return str(vnode)
+            elif isinstance(vnode, VNode):
+                return VDOMRenderer.create_element(vnode)
+            elif hasattr(vnode, 'render'):
+                # Handle components that have a render method
+                rendered = vnode.render()
+                return VDOMRenderer.render_to_string(rendered)
+            elif isinstance(vnode, (list, tuple)):
+                # Handle lists of nodes
+                return ''.join(VDOMRenderer.render_to_string(child) for child in vnode)
+            else:
+                return str(vnode)
+        except Exception as e:
+            raise Exception(f"Failed to render node: {e}")

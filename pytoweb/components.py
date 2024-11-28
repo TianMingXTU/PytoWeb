@@ -7,7 +7,7 @@ PytoWeb组件系统
 from __future__ import annotations
 from typing import (
     Dict, Any, Optional, Callable, List, Set,
-    TypeVar, TypedDict, Union
+    TypeVar, TypedDict, Union, TYPE_CHECKING
 )
 from collections import OrderedDict
 import weakref
@@ -15,6 +15,18 @@ import logging
 from .elements import Element
 from .styles import Style
 from .events import EventDelegate, Event
+import time
+import sys
+import asyncio
+import uuid
+import traceback
+from dataclasses import dataclass
+from datetime import datetime
+import json
+from functools import wraps
+
+if TYPE_CHECKING:
+    from typing import Literal
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
@@ -39,8 +51,11 @@ class ComponentCache:
         
     def __init__(self):
         if not hasattr(self, 'initialized'):
-            self._cache: OrderedDict[str, Any] = OrderedDict()
-            self._max_size = 100
+            self._cache: OrderedDict[str, tuple[Any, float]] = OrderedDict()
+            self._max_size = 100  # 最大缓存项数
+            self._max_memory = 100 * 1024 * 1024  # 最大内存使用(100MB)
+            self._ttl = 300  # 缓存过期时间(秒)
+            self._current_memory = 0
             self._logger = logging.getLogger(__name__)
             self.initialized = True
             
@@ -48,8 +63,18 @@ class ComponentCache:
         """获取缓存的组件"""
         try:
             if key in self._cache:
-                value = self._cache.pop(key)
-                self._cache[key] = value
+                value, timestamp = self._cache[key]
+                current_time = time.time()
+                
+                # 检查是否过期
+                if current_time - timestamp > self._ttl:
+                    self._cache.pop(key)
+                    self._current_memory -= sys.getsizeof(value)
+                    return None
+                    
+                # 更新访问顺序和时间戳
+                self._cache.move_to_end(key)
+                self._cache[key] = (value, current_time)
                 return value
         except Exception as e:
             self._logger.error(f"Error getting cached component: {e}", exc_info=True)
@@ -58,17 +83,50 @@ class ComponentCache:
     def set(self, key: str, value: Any):
         """缓存组件"""
         try:
+            current_time = time.time()
+            value_size = sys.getsizeof(value)
+            
+            # 检查单个值是否超过最大内存限制
+            if value_size > self._max_memory:
+                self._logger.warning(f"Value too large to cache: {value_size} bytes")
+                return
+                
+            # 如果已存在，先移除旧值
             if key in self._cache:
-                self._cache.pop(key)
-            elif len(self._cache) >= self._max_size:
-                self._cache.popitem(last=False)
-            self._cache[key] = value
+                old_value, _ = self._cache.pop(key)
+                self._current_memory -= sys.getsizeof(old_value)
+                
+            # 清理过期和超出内存限制的缓存
+            while self._cache and (
+                len(self._cache) >= self._max_size or
+                self._current_memory + value_size > self._max_memory or
+                current_time - next(iter(self._cache.values()))[1] > self._ttl
+            ):
+                removed_key = next(iter(self._cache))
+                removed_value, _ = self._cache.pop(removed_key)
+                self._current_memory -= sys.getsizeof(removed_value)
+                
+            # 添加新值
+            self._cache[key] = (value, current_time)
+            self._current_memory += value_size
+            
         except Exception as e:
             self._logger.error(f"Error caching component: {e}", exc_info=True)
             
     def clear(self):
         """清除缓存"""
         self._cache.clear()
+        self._current_memory = 0
+        
+    def get_stats(self) -> dict:
+        """获取缓存统计信息"""
+        return {
+            'size': len(self._cache),
+            'memory_usage': self._current_memory,
+            'max_size': self._max_size,
+            'max_memory': self._max_memory,
+            'ttl': self._ttl
+        }
 
 class Component:
     """所有组件的基类"""
@@ -82,114 +140,564 @@ class Component:
         self.tag_name = "div"  # 默认标签
         self._cache = ComponentCache()
         self._logger = logging.getLogger(__name__)
+        self._mounted = False
+        self._destroyed = False
         
-        # 添加基本事件委托
-        self.on_mount = EventDelegate()
-        self.on_unmount = EventDelegate()
-        self.on_update = EventDelegate()
+        # 生命周期事件
+        self.on_before_mount = EventDelegate()
+        self.on_mounted = EventDelegate()
+        self.on_before_update = EventDelegate()
+        self.on_updated = EventDelegate()
+        self.on_before_destroy = EventDelegate()
+        self.on_destroyed = EventDelegate()
         self.on_error = EventDelegate()
-
-    def mount(self):
-        """组件挂载时调用"""
+        
+        # 状态变更事件
+        self.on_state_change = EventDelegate()
+        self.on_prop_change = EventDelegate()
+        
+        self._memo_cache = {}
+        self._memo_deps = {}
+        
+        self._lazy_loaded = False
+        self._lazy_loading = False
+        self._lazy_error = None
+        self._lazy_promise = None
+        
+    def set_prop(self, key: str, value: Any):
+        """设置属性"""
         try:
-            self.on_mount(self)
-        except Exception as e:
-            self._logger.error(f"Error mounting component: {e}", exc_info=True)
-            self.on_error(e)
-            
-    def unmount(self):
-        """组件卸载时调用"""
-        try:
-            self.on_unmount(self)
-        except Exception as e:
-            self._logger.error(f"Error unmounting component: {e}", exc_info=True)
-            self.on_error(e)
-            
-    def update(self):
-        """组件更新时调用"""
-        try:
-            self._update()  # 调用原有的_update方法
-            self.on_update(self)
-        except Exception as e:
-            self._logger.error(f"Error updating component: {e}", exc_info=True)
-            self.on_error(e)
-            
-    def set_prop(self, key: str, value: Any) -> 'Component':
-        """设置组件属性"""
-        try:
-            self.props[key] = value
-            return self
+            old_value = self.props.get(key)
+            if old_value != value:
+                self.props[key] = value
+                self.on_prop_change(self, key, old_value, value)
+                self._update()
         except Exception as e:
             self._logger.error(f"Error setting prop {key}: {e}", exc_info=True)
-            raise
-        
-    def set_state(self, key: str, value: Any) -> 'Component':
-        """设置组件状态"""
+            self.on_error(self, e)
+            
+    def set_state(self, key: str, value: Any):
+        """设置状态"""
         try:
-            if self.state.get(key) != value:
+            old_value = self.state.get(key)
+            if old_value != value:
                 self.state[key] = value
+                self.on_state_change(self, key, old_value, value)
                 self._update()
-            return self
         except Exception as e:
             self._logger.error(f"Error setting state {key}: {e}", exc_info=True)
-            raise
-        
-    def add_child(self, child: 'Component') -> 'Component':
+            self.on_error(self, e)
+            
+    def add_child(self, child: 'Component'):
         """添加子组件"""
         try:
             child.parent = self
             self.children.append(child)
-            return self
+            self._update()
         except Exception as e:
-            self._logger.error(f"Error adding child component: {e}", exc_info=True)
-            raise
-        
-    def apply_style(self, style: Style) -> 'Component':
-        """应用样式"""
+            self._logger.error(f"Error adding child: {e}", exc_info=True)
+            self.on_error(self, e)
+            
+    def remove_child(self, child: 'Component'):
+        """移除子组件"""
         try:
-            self.style = self.style + style
-            return self
+            if child in self.children:
+                child.parent = None
+                self.children.remove(child)
+                self._update()
         except Exception as e:
-            self._logger.error(f"Error applying style: {e}", exc_info=True)
-            raise
-        
+            self._logger.error(f"Error removing child: {e}", exc_info=True)
+            self.on_error(self, e)
+            
+    def mount(self):
+        """组件挂载"""
+        try:
+            if not self._mounted:
+                self.on_before_mount(self)
+                self._mounted = True
+                for child in self.children:
+                    child.mount()
+                self.on_mounted(self)
+        except Exception as e:
+            self._logger.error(f"Error mounting component: {e}", exc_info=True)
+            self.on_error(self, e)
+            
+    def unmount(self):
+        """组件卸载"""
+        try:
+            if self._mounted and not self._destroyed:
+                self.on_before_destroy(self)
+                self._mounted = False
+                self._destroyed = True
+                for child in self.children:
+                    child.unmount()
+                self.on_destroyed(self)
+        except Exception as e:
+            self._logger.error(f"Error unmounting component: {e}", exc_info=True)
+            self.on_error(self, e)
+            
     def _update(self):
-        """更新组件状态"""
+        """更新组件"""
         try:
-            # 触发重新渲染
-            cache_key = f"{self.__class__.__name__}_{id(self)}"
-            self._cache.clear()  # 清除该组件的缓存
-            self._logger.debug(f"Component {cache_key} updated")
+            if self._mounted and not self._destroyed:
+                self.on_before_update(self)
+                # 实际更新逻辑
+                self.on_updated(self)
         except Exception as e:
             self._logger.error(f"Error updating component: {e}", exc_info=True)
-        
-    def __getattr__(self, name: str) -> Any:
-        """通过属性访问获取组件属性"""
-        if name in self.props:
-            return self.props[name]
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-        
-    def render(self) -> Element:
+            self.on_error(self, e)
+            
+    def validate_props(self, prop_types: Dict[str, type]):
+        """验证属性类型"""
+        for key, expected_type in prop_types.items():
+            if key in self.props:
+                value = self.props[key]
+                if not isinstance(value, expected_type):
+                    raise TypeError(f"Prop '{key}' expected type {expected_type.__name__}, got {type(value).__name__}")
+                    
+    def validate_state(self, state_types: Dict[str, type]):
+        """验证状态类型"""
+        for key, expected_type in state_types.items():
+            if key in self.state:
+                value = self.state[key]
+                if not isinstance(value, expected_type):
+                    raise TypeError(f"State '{key}' expected type {expected_type.__name__}, got {type(value).__name__}")
+                    
+    def render(self):
         """渲染组件"""
         try:
-            cache_key = f"{self.__class__.__name__}_{id(self)}"
-            cached = self._cache.get(cache_key)
-            if cached:
-                return cached
-                
+            print(f"[DEBUG] Rendering component: {self.__class__.__name__}")
             element = Element(self.tag_name)
-            element.style = self.style
             
-            # 渲染子组件
+            # 添加样式
+            if self.style:
+                element.style.update(self.style.get_all())
+                print(f"[DEBUG] Added styles: {self.style.get_all()}")
+            
+            # 添加子组件
             for child in self.children:
-                element.append_child(child.render())
-                
-            self._cache.set(cache_key, element)
-            return element
+                try:
+                    child_element = child.render()
+                    if child_element:
+                        element.add(child_element)
+                        print(f"[DEBUG] Added child element: {child.__class__.__name__}")
+                    else:
+                        print(f"[WARNING] Child {child.__class__.__name__} rendered None")
+                except Exception as e:
+                    print(f"[ERROR] Failed to render child {child.__class__.__name__}: {e}")
+                    raise
             
+            return element
         except Exception as e:
-            self._logger.error(f"Error rendering component: {e}", exc_info=True)
+            print(f"[ERROR] Failed to render {self.__class__.__name__}: {e}")
             raise
+            
+    def memo(self, key: str, fn: Callable[..., Any], *deps: Any) -> Any:
+        """记忆化计算结果
+        
+        Args:
+            key: 缓存键名
+            fn: 要记忆化的函数
+            deps: 依赖项，当这些值变化时重新计算
+            
+        Returns:
+            记忆化的计算结果
+        """
+        current_deps = tuple(deps)
+        
+        # 检查依赖是否变化
+        if (key not in self._memo_cache or
+            key not in self._memo_deps or
+            self._memo_deps[key] != current_deps):
+            
+            # 重新计算并缓存结果
+            self._memo_cache[key] = fn()
+            self._memo_deps[key] = current_deps
+            
+        return self._memo_cache[key]
+        
+    def clear_memo(self, key: Optional[str] = None):
+        """清除记忆化缓存
+        
+        Args:
+            key: 要清除的特定缓存键,如果为None则清除所有缓存
+        """
+        if key is None:
+            self._memo_cache.clear()
+            self._memo_deps.clear()
+        else:
+            self._memo_cache.pop(key, None)
+            self._memo_deps.pop(key, None)
+
+    def lazy_load(self, loader: Callable[[], Awaitable[Any]]) -> None:
+        """懒加载组件内容
+        
+        Args:
+            loader: 异步加载函数
+        """
+        if not self._lazy_loaded and not self._lazy_loading:
+            self._lazy_loading = True
+            self._lazy_promise = asyncio.create_task(self._do_lazy_load(loader))
+            
+    async def _do_lazy_load(self, loader: Callable[[], Awaitable[Any]]) -> None:
+        """执行懒加载
+        
+        Args:
+            loader: 异步加载函数
+        """
+        try:
+            result = await loader()
+            self._handle_lazy_load_success(result)
+        except Exception as e:
+            self._handle_lazy_load_error(e)
+            
+    def _handle_lazy_load_success(self, result: Any) -> None:
+        """处理懒加载成功
+        
+        Args:
+            result: 加载结果
+        """
+        self._lazy_loaded = True
+        self._lazy_loading = False
+        self._lazy_error = None
+        self.state['lazy_result'] = result
+        self._update()
+        
+    def _handle_lazy_load_error(self, error: Exception) -> None:
+        """处理懒加载错误
+        
+        Args:
+            error: 错误信息
+        """
+        self._lazy_loaded = False
+        self._lazy_loading = False
+        self._lazy_error = error
+        self._update()
+        
+    def is_lazy_loaded(self) -> bool:
+        """检查是否已完成懒加载"""
+        return self._lazy_loaded
+        
+    def is_lazy_loading(self) -> bool:
+        """检查是否正在懒加载"""
+        return self._lazy_loading
+        
+    def get_lazy_error(self) -> Optional[Exception]:
+        """获取懒加载错误信息"""
+        return self._lazy_error
+
+class AsyncComponentMixin:
+    """为组件添加异步支持的Mixin类"""
+    def __init__(self):
+        super().__init__()
+        self._cache = ComponentCache()
+        self._pending_updates = {}
+        
+    async def update_async(self, **kwargs):
+        """异步更新组件状态"""
+        update_id = str(uuid.uuid4())
+        self._pending_updates[update_id] = asyncio.Future()
+        
+        try:
+            await self.on_before_update.emit_async()
+            self.state.update(kwargs)
+            await self.on_updated.emit_async()
+            self._pending_updates[update_id].set_result(True)
+        except Exception as e:
+            self._pending_updates[update_id].set_exception(e)
+        finally:
+            del self._pending_updates[update_id]
+            
+    async def render_async(self):
+        """异步渲染组件"""
+        cache_key = self._get_cache_key()
+        cached = self._cache.get(cache_key)
+        if cached:
+            return cached
+            
+        try:
+            await self.on_before_mount.emit_async()
+            result = await self._render_async_impl()
+            await self.on_mounted.emit_async()
+            
+            self._cache.set(cache_key, result)
+            return result
+        except Exception as e:
+            self.logger.error(f"Error in async rendering: {e}")
+            raise
+            
+    async def _render_async_impl(self):
+        """异步渲染实现"""
+        raise NotImplementedError("Async components must implement _render_async_impl")
+
+class AsyncComponent(AsyncComponentMixin, Component):
+    """异步组件基类"""
+    pass
+
+class Suspense(Component):
+    """处理异步加载状态的组件"""
+    def __init__(self,
+                 component: AsyncComponent,
+                 fallback: Optional[Component] = None,
+                 error_fallback: Optional[Component] = None):
+        super().__init__()
+        self.set_prop('component', component)
+        self.set_prop('fallback', fallback or self._default_fallback())
+        self.set_prop('error_fallback', error_fallback or self._default_error())
+        
+        self.state.update({
+            'loading': True,
+            'error': None
+        })
+        
+    def _default_fallback(self):
+        """默认加载组件"""
+        loading = Component()
+        loading.tag_name = "div"
+        loading.style.add(
+            text_align="center",
+            padding="1rem"
+        )
+        loading.set_text("Loading...")
+        return loading
+        
+    def _default_error(self):
+        """默认错误组件"""
+        error = Component()
+        error.tag_name = "div"
+        error.style.add(
+            color="red",
+            text_align="center",
+            padding="1rem"
+        )
+        error.set_text("An error occurred")
+        return error
+        
+    async def render_async(self):
+        """异步渲染"""
+        try:
+            if self.state['loading']:
+                return self.props['fallback']
+                
+            result = await self.props['component'].render_async()
+            self.state['loading'] = False
+            return result
+        except Exception as e:
+            self.state['error'] = str(e)
+            self.logger.error(f"Error in Suspense: {e}")
+            return self.props['error_fallback']
+
+class ErrorBoundary(Component):
+    """错误边界组件，用于捕获和处理子组件中的错误"""
+    
+    def __init__(self,
+                 children: list[Component],
+                 fallback: Optional[Callable[[Exception], Component]] = None):
+        super().__init__()
+        self.set_prop('children', children)
+        self.set_prop('fallback', fallback or self._default_fallback)
+        
+        self.state.update({
+            'error': None,
+            'error_info': None
+        })
+        
+        self._error_handler = ErrorHandler.get_instance()
+        
+    def _default_fallback(self, error: Exception) -> Component:
+        """默认错误回退组件"""
+        error_component = Component()
+        error_component.tag_name = "div"
+        error_component.style.add(
+            color="red",
+            padding="1rem",
+            border="1px solid red",
+            margin="1rem",
+            background_color="rgba(255,0,0,0.1)"
+        )
+        error_component.set_text(f"Error: {str(error)}")
+        return error_component
+        
+    def render(self):
+        """渲染错误边界"""
+        if self.state['error']:
+            error_component = self.props['fallback'](self.state['error'])
+            return error_component
+            
+        try:
+            return self.props['children']
+        except Exception as e:
+            self.state['error'] = e
+            self.state['error_info'] = self._error_handler._get_error_context()
+            self._error_handler.handle_error(e, self.state['error_info'])
+            return self.props['fallback'](e)
+
+@dataclass
+class ErrorContext:
+    """错误上下文信息"""
+    component: Optional[str] = None
+    function: Optional[str] = None
+    line_number: Optional[int] = None
+    file_path: Optional[str] = None
+    stack_trace: Optional[str] = None
+    additional_info: Dict[str, Any] = None
+
+@dataclass
+class ErrorReport:
+    """详细错误报告"""
+    error_type: str
+    message: str
+    context: ErrorContext
+    timestamp: datetime
+    severity: str
+    handled: bool
+
+class ErrorHandler:
+    """中央错误处理系统"""
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+        
+    def __init__(self):
+        if not hasattr(self, 'initialized'):
+            self.error_listeners: List[Callable[[ErrorReport], None]] = []
+            self.error_history: List[ErrorReport] = []
+            self.max_history = 100
+            self.logger = logging.getLogger('pytoweb.errors')
+            self.initialized = True
+            
+    @classmethod
+    def get_instance(cls):
+        return cls()
+        
+    def add_listener(self, listener: Callable[[ErrorReport], None]):
+        """添加错误监听器"""
+        self.error_listeners.append(listener)
+        
+    def remove_listener(self, listener: Callable[[ErrorReport], None]):
+        """移除错误监听器"""
+        self.error_listeners.remove(listener)
+        
+    def handle_error(self, error: Exception, context: Optional[ErrorContext] = None):
+        """处理错误"""
+        if context is None:
+            context = self._get_error_context()
+            
+        report = ErrorReport(
+            error_type=type(error).__name__,
+            message=str(error),
+            context=context,
+            timestamp=datetime.now(),
+            severity=self._get_error_severity(error),
+            handled=True
+        )
+        
+        self.error_history.append(report)
+        if len(self.error_history) > self.max_history:
+            self.error_history.pop(0)
+            
+        for listener in self.error_listeners:
+            try:
+                listener(report)
+            except Exception as e:
+                self.logger.error(f"Error in error listener: {e}")
+                
+        self.logger.error(f"Error: {report.message}", exc_info=True)
+        
+    def _get_error_context(self) -> ErrorContext:
+        """从当前异常获取上下文"""
+        tb = sys.exc_info()[2]
+        while tb.tb_next:
+            tb = tb.tb_next
+            
+        frame = tb.tb_frame
+        return ErrorContext(
+            function=frame.f_code.co_name,
+            line_number=tb.tb_lineno,
+            file_path=frame.f_code.co_filename,
+            stack_trace=traceback.format_exc()
+        )
+        
+    def _get_error_severity(self, error: Exception) -> str:
+        """确定错误严重性"""
+        if isinstance(error, (SystemError, MemoryError)):
+            return "CRITICAL"
+        if isinstance(error, (ValueError, TypeError)):
+            return "ERROR"
+        return "WARNING"
+        
+    def get_error_summary(self) -> Dict[str, Any]:
+        """获取最近错误的摘要"""
+        return {
+            'total_errors': len(self.error_history),
+            'error_types': self._count_error_types(),
+            'recent_errors': [
+                {
+                    'type': e.error_type,
+                    'message': e.message,
+                    'timestamp': e.timestamp.isoformat()
+                }
+                for e in self.error_history[-5:]
+            ]
+        }
+        
+    def _count_error_types(self) -> Dict[str, int]:
+        """统计每种错误类型的出现次数"""
+        counts = {}
+        for error in self.error_history:
+            counts[error.error_type] = counts.get(error.error_type, 0) + 1
+        return counts
+        
+    def export_error_report(self, filepath: str):
+        """导出错误历史到文件"""
+        try:
+            with open(filepath, 'w') as f:
+                json.dump(
+                    {
+                        'error_summary': self.get_error_summary(),
+                        'full_history': [
+                            {
+                                'type': e.error_type,
+                                'message': e.message,
+                                'timestamp': e.timestamp.isoformat(),
+                                'severity': e.severity,
+                                'context': {
+                                    'component': e.context.component,
+                                    'function': e.context.function,
+                                    'line': e.context.line_number,
+                                    'file': e.context.file_path,
+                                    'stack_trace': e.context.stack_trace
+                                }
+                            }
+                            for e in self.error_history
+                        ]
+                    },
+                    f,
+                    indent=2
+                )
+        except Exception as e:
+            self.logger.error(f"Failed to export error report: {e}")
+
+def error_boundary(fallback_component: Optional[Callable[[Exception], Component]] = None):
+    """错误边界装饰器"""
+    def decorator(component_class):
+        original_render = component_class.render
+        
+        @wraps(original_render)
+        def wrapped_render(self, *args, **kwargs):
+            boundary = ErrorBoundary(
+                children=[original_render(self, *args, **kwargs)],
+                fallback=fallback_component
+            )
+            return boundary.render()
+            
+        component_class.render = wrapped_render
+        return component_class
+        
+    return decorator
 
 class Button(Component):
     """预构建的Button组件"""
@@ -577,161 +1085,693 @@ class Flex(Component):
             flex.add(child.render())
         return flex
 
-class Modal(Component):
-    """模态对话框组件"""
-    
-    def __init__(self, content: str, title: str = "", show_close: bool = True):
+class ModernModal(Component):
+    """现代模态对话框组件"""
+    def __init__(self,
+                 title: str,
+                 content: str,
+                 size: Literal["sm", "md", "lg", "xl"] = "md",
+                 centered: bool = True,
+                 closable: bool = True):
         super().__init__()
         self.tag_name = "div"
-        self.set_prop('content', content)
         self.set_prop('title', title)
-        self.set_prop('show_close', show_close)
+        self.set_prop('content', content)
+        self.set_prop('size', size)
+        self.set_prop('centered', centered)
+        self.set_prop('closable', closable)
         
-    def render(self) -> Element:
-        close_button = '<span class="modal-close">&times;</span>' if self.show_close else ''
-        title_html = f'<div class="modal-title">{self.title}</div>' if self.title else ''
+        self.state.update({
+            'visible': False
+        })
         
-        return f"""
-        <div class="pytoweb-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    {title_html}
-                    {close_button}
-                </div>
-                <div class="modal-body">
-                    {self.content}
-                </div>
-            </div>
-        </div>
-        """
+        # 设置样式
+        self.style.add(
+            position="fixed",
+            top="0",
+            left="0",
+            width="100%",
+            height="100%",
+            display="flex",
+            align_items="center" if centered else "flex-start",
+            justify_content="center",
+            background_color="rgba(0, 0, 0, 0.5)",
+            z_index="1000",
+            opacity="0",
+            visibility="hidden",
+            transition="opacity 0.3s ease-in-out, visibility 0.3s ease-in-out"
+        )
+        
+    def show(self) -> None:
+        """显示模态对话框"""
+        self.set_state('visible', True)
+        self.style.add(
+            opacity="1",
+            visibility="visible"
+        )
+        
+    def hide(self) -> None:
+        """隐藏模态对话框"""
+        self.set_state('visible', False)
+        self.style.add(
+            opacity="0",
+            visibility="hidden"
+        )
+        
+    def _get_size_width(self) -> str:
+        """Get modal width based on size"""
+        size_map = {
+            'sm': '300px',
+            'md': '500px',
+            'lg': '800px',
+            'xl': '1140px'
+        }
+        return size_map.get(self.props['size'], '500px')
+        
+    def render(self):
+        """渲染模态对话框"""
+        dialog = Component()
+        dialog.tag_name = "div"
+        dialog.style.add(
+            background_color="#ffffff",
+            border_radius="0.5rem",
+            box_shadow="0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            max_width=self._get_size_width(),
+            width="100%",
+            max_height="90vh",
+            display="flex",
+            flex_direction="column",
+            transform=f"scale({1 if self.state['visible'] else 0.9})",
+            transition="transform 0.3s ease-in-out"
+        )
+        
+        # Header
+        header = Component()
+        header.tag_name = "div"
+        header.style.add(
+            padding="1rem",
+            border_bottom="1px solid #e5e7eb",
+            display="flex",
+            align_items="center",
+            justify_content="space-between"
+        )
+        
+        title = Component()
+        title.tag_name = "h3"
+        title.style.add(
+            margin="0",
+            font_size="1.25rem",
+            font_weight="600",
+            color="#111827"
+        )
+        title.set_text(self.props['title'])
+        header.add_child(title)
+        
+        if self.props['closable']:
+            close_button = Component()
+            close_button.tag_name = "button"
+            close_button.style.add(
+                background="none",
+                border="none",
+                padding="0.5rem",
+                cursor="pointer",
+                color="#6b7280"
+            )
+            close_button.set_text("×")
+            close_button.on_click.add(self.hide)
+            header.add_child(close_button)
+            
+        dialog.add_child(header)
+        
+        # Content
+        content = Component()
+        content.tag_name = "div"
+        content.style.add(
+            padding="1rem",
+            overflow_y="auto"
+        )
+        
+        if isinstance(self.props['content'], str):
+            content.set_text(self.props['content'])
+        else:
+            content.add_child(self.props['content'])
+            
+        dialog.add_child(content)
+        
+        return dialog
 
-class Toast(Component):
-    """吐司通知组件"""
+class ModernToast(Component):
+    """现代吐司通知组件"""
     
-    def __init__(self, message: str, type: str = "info", duration: int = 3000):
+    def __init__(self,
+                 message: str,
+                 type: str = "info",
+                 duration: int = 3000,
+                 position: str = "bottom-right"):
         super().__init__()
         self.tag_name = "div"
         self.set_prop('message', message)
         self.set_prop('type', type)
         self.set_prop('duration', duration)
+        self.set_prop('position', position)
         
-    def render(self) -> Element:
-        return f"""
-        <div class="pytoweb-toast {self.type}" style="display: none;">
-            {self.message}
-        </div>
-        <script>
-            (function() {{
-                const toast = document.querySelector('.pytoweb-toast');
-                toast.style.display = 'block';
-                setTimeout(() => {{
-                    toast.style.display = 'none';
-                }}, {self.duration});
-            }})();
-        </script>
-        """
+        self.state.update({
+            'visible': False
+        })
+        
+        # 设置样式
+        self.style.add(
+            position="fixed",
+            padding="1rem",
+            border_radius="0.5rem",
+            background_color=self._get_background_color(),
+            color="#ffffff",
+            box_shadow="0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+            max_width="24rem",
+            opacity="0",
+            transform="translateY(1rem)",
+            transition="opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
+            **self._get_position_style()
+        )
+        
+    def show(self):
+        """显示吐司通知"""
+        self.set_state('visible', True)
+        self.style.add(
+            opacity="1",
+            transform="translateY(0)"
+        )
+        
+        # Auto hide
+        if self.props['duration'] > 0:
+            def hide():
+                self.hide()
+            setTimeout(hide, self.props['duration'])
+            
+    def hide(self):
+        """隐藏吐司通知"""
+        self.set_state('visible', False)
+        self.style.add(
+            opacity="0",
+            transform="translateY(1rem)"
+        )
+        
+    def _get_background_color(self) -> str:
+        """Get background color based on type"""
+        colors = {
+            "info": "#3b82f6",
+            "success": "#10b981",
+            "warning": "#f59e0b",
+            "error": "#ef4444"
+        }
+        return colors.get(self.props['type'], colors['info'])
+        
+    def _get_position_style(self) -> dict[str, str]:
+        """Get position style"""
+        positions = {
+            "top-left": {"top": "1rem", "left": "1rem"},
+            "top-right": {"top": "1rem", "right": "1rem"},
+            "bottom-left": {"bottom": "1rem", "left": "1rem"},
+            "bottom-right": {"bottom": "1rem", "right": "1rem"}
+        }
+        return positions.get(self.props['position'], positions['bottom-right'])
+        
+    def render(self):
+        """Render toast"""
+        container = Component()
+        container.tag_name = "div"
+        container.style.add(
+            display="flex",
+            align_items="center",
+            gap="0.5rem"
+        )
+        
+        # Icon
+        icon = Component()
+        icon.tag_name = "span"
+        icon.style.add(
+            font_size="1.25rem"
+        )
+        icon.set_text(self._get_icon())
+        container.add_child(icon)
+        
+        # Message
+        message = Component()
+        message.tag_name = "span"
+        message.set_text(self.props['message'])
+        container.add_child(message)
+        
+        return container
+        
+    def _get_icon(self) -> str:
+        """Get icon based on type"""
+        icons = {
+            "info": "ℹ",
+            "success": "✓",
+            "warning": "⚠",
+            "error": "✕"
+        }
+        return icons.get(self.props['type'], icons['info'])
 
-class Tabs(Component):
-    """选项卡组件"""
+class ModernTabs(Component):
+    """现代选项卡组件"""
     
-    def __init__(self, tabs: list[dict[str, str]]):
-        """
-        初始化选项卡组件
-        tabs: 选项卡列表，每个选项卡是一个字典，包含'label'和'content'键
-        """
+    def __init__(self,
+                 tabs: list[dict[str, Any]],
+                 active_index: int = 0,
+                 variant: str = "default"):
         super().__init__()
         self.tag_name = "div"
         self.set_prop('tabs', tabs)
+        self.set_prop('variant', variant)
         
-    def render(self) -> Element:
-        tabs_html = "".join([
-            f'<div class="tab-button" data-tab="{i}">{tab["label"]}</div>'
-            for i, tab in enumerate(self.tabs)
-        ])
-        
-        content_html = "".join([
-            f'<div class="tab-content" data-tab="{i}">{tab["content"]}</div>'
-            for i, tab in enumerate(self.tabs)
-        ])
-        
-        return f"""
-        <div class="pytoweb-tabs">
-            <div class="tab-buttons">
-                {tabs_html}
-            </div>
-            <div class="tab-contents">
-                {content_html}
-            </div>
-        </div>
-        <script>
-            (function() {{
-                const tabButtons = document.querySelectorAll('.tab-button');
-                const tabContents = document.querySelectorAll('.tab-content');
-                
-                tabButtons.forEach(button => {{
-                    button.addEventListener('click', () => {{
-                        const tabIndex = button.dataset.tab;
-                        
-                        tabButtons.forEach(btn => btn.classList.remove('active'));
-                        tabContents.forEach(content => content.classList.remove('active'));
-                        
-                        button.classList.add('active');
-                        document.querySelector(`.tab-content[data-tab="${{tabIndex}}"]`).classList.add('active');
-                    }});
-                }});
-                
-                // Activate first tab by default
-                tabButtons[0]?.click();
-            }})();
-        </script>
-        """
+        self.state.update({
+            'active_index': active_index
+        })
 
-class DatePicker(Component):
-    """日期选择器组件"""
+    def _handle_tab_click(self, index: int):
+        """Handle tab click"""
+        self.set_state('active_index', index)
+        
+    def render(self):
+        """Render tabs"""
+        container = Component()
+        container.tag_name = "div"
+        
+        # Tab list
+        tab_list = Component()
+        tab_list.tag_name = "div"
+        tab_list.style.add(
+            display="flex",
+            border_bottom="1px solid #e5e7eb"
+        )
+        
+        for i, tab in enumerate(self.props['tabs']):
+            tab_button = Component()
+            tab_button.tag_name = "button"
+            tab_button.style.add(
+                padding="0.75rem 1rem",
+                border="none",
+                background="none",
+                font_weight="500",
+                color="#6b7280" if i != self.state['active_index'] else "#111827",
+                border_bottom=f"2px solid {'transparent' if i != self.state['active_index'] else '#3b82f6'}",
+                cursor="pointer",
+                transition="all 0.2s ease-in-out"
+            )
+            tab_button.set_text(tab['label'])
+            tab_button.on_click.add(lambda e, i=i: self._handle_tab_click(i))
+            tab_list.add_child(tab_button)
+            
+        container.add_child(tab_list)
+        
+        # Tab panels
+        panel_container = Component()
+        panel_container.tag_name = "div"
+        panel_container.style.add(
+            padding="1rem"
+        )
+        
+        active_tab = self.props['tabs'][self.state['active_index']]
+        if isinstance(active_tab['content'], str):
+            panel_container.set_text(active_tab['content'])
+        else:
+            panel_container.add_child(active_tab['content'])
+            
+        container.add_child(panel_container)
+        
+        return container
+
+class ModernAccordion(Component):
+    """现代手风琴组件"""
     
-    def __init__(self, value: str = "", format: str = "YYYY-MM-DD", 
-                 min_date: str = None, max_date: str = None,
-                 on_change: Optional[Callable] = None):
+    def __init__(self,
+                 items: list[dict[str, Any]],
+                 multiple: bool = False):
         super().__init__()
         self.tag_name = "div"
-        self.set_prop('value', value)
-        self.set_prop('format', format)
-        self.set_prop('min_date', min_date)
-        self.set_prop('max_date', max_date)
-        if on_change:
-            self.set_prop('on_change', on_change)
+        self.set_prop('items', items)
+        self.set_prop('multiple', multiple)
+        
+        self.state.update({
+            'expanded': set()
+        })
+
+    def _toggle_item(self, index: int):
+        """Toggle accordion item"""
+        expanded = self.state['expanded'].copy()
+        
+        if not self.props['multiple']:
+            expanded.clear()
             
-        # Add calendar container
-        self.calendar = Element('div')
-        self.calendar.style.add(
-            position="absolute",
-            display="none",
-            background_color="#ffffff",
-            border="1px solid #ddd",
-            border_radius="4px",
-            padding="1rem",
-            box_shadow="0 2px 10px rgba(0,0,0,0.1)",
-            z_index="1000"
+        if index in expanded:
+            expanded.remove(index)
+        else:
+            expanded.add(index)
+            
+        self.set_state('expanded', expanded)
+        
+    def render(self):
+        """Render accordion"""
+        container = Component()
+        container.tag_name = "div"
+        container.style.add(
+            border="1px solid #e5e7eb",
+            border_radius="0.5rem",
+            overflow="hidden"
+        )
+        
+        for i, item in enumerate(self.props['items']):
+            # Item container
+            item_container = Component()
+            item_container.tag_name = "div"
+            item_container.style.add(
+                border_top="1px solid #e5e7eb" if i > 0 else "none"
+            )
+            
+            # Header
+            header = Component()
+            header.tag_name = "button"
+            header.style.add(
+                width="100%",
+                padding="1rem",
+                background="none",
+                border="none",
+                text_align="left",
+                cursor="pointer",
+                display="flex",
+                align_items="center",
+                justify_content="space-between"
+            )
+            
+            # Expand/collapse icon
+            has_children = 'children' in item and item['children']
+            if has_children:
+                icon = Component()
+                icon.tag_name = "span"
+                icon.style.add(
+                    margin_right="0.5rem",
+                    transition="transform 0.2s"
+                )
+                if i in self.state['expanded']:
+                    icon.style.add(transform="rotate(90deg)")
+                icon.add(Element('span', text="▶"))
+                header.add(icon)
+                
+            # Node icon (if provided)
+            if 'icon' in item:
+                node_icon = Component()
+                node_icon.tag_name = "span"
+                node_icon.style.add(margin_right="0.5rem")
+                node_icon.add(Element('span', text=item['icon']))
+                header.add(node_icon)
+                
+            # Node label
+            label = Component()
+            label.tag_name = "span"
+            label.add(Element('span', text=item['label']))
+            header.add(label)
+            
+            # Add click handler for expansion toggle
+            if has_children:
+                header.on('click', lambda: self._toggle_item(i))
+                
+            item_container.add(header)
+            
+            # Render children if node is expanded
+            if has_children and i in self.state['expanded']:
+                children_container = Component()
+                for child in item['children']:
+                    children_container.add(self._render_node(child, 1))
+                item_container.add(children_container)
+                
+            container.add_child(item_container)
+            
+        return container
+
+    def _render_node(self, node: Dict[str, Any], level: int = 0) -> Element:
+        """Render a single node and its children"""
+        node_container = Element('div')
+        
+        # Node header
+        header = Element('div')
+        header.style.add(
+            display="flex",
+            align_items="center",
+            padding="0.5rem",
+            padding_left=f"{level * 1.5 + 0.5}rem",
+            cursor="pointer",
+            transition="background-color 0.2s"
+        )
+        header.add_hover_style(background_color="#f5f5f5")
+        
+        # Expand/collapse icon
+        has_children = 'children' in node and node['children']
+        if has_children:
+            icon = Element('span')
+            icon.style.add(
+                margin_right="0.5rem",
+                transition="transform 0.2s"
+            )
+            if node['id'] in self.state['expanded']:
+                icon.style.add(transform="rotate(90deg)")
+            icon.add(Element('span', text="▶"))
+            header.add(icon)
+            
+        # Node icon (if provided)
+        if 'icon' in node:
+            node_icon = Element('span')
+            node_icon.style.add(margin_right="0.5rem")
+            node_icon.add(Element('span', text=node['icon']))
+            header.add(node_icon)
+            
+        # Node label
+        label = Element('span')
+        label.add(Element('span', text=node['label']))
+        header.add(label)
+        
+        # Add click handler for expansion toggle
+        if has_children:
+            header.on('click', lambda: self._toggle_item(node['id']))
+            
+        node_container.add(header)
+        
+        # Render children if node is expanded
+        if has_children and node['id'] in self.state['expanded']:
+            children_container = Element('div')
+            for child in node['children']:
+                children_container.add(self._render_node(child, level + 1))
+            node_container.add(children_container)
+            
+        return node_container
+
+class VirtualList(Component):
+    """虚拟滚动列表组件，用于高效渲染大量数据"""
+    
+    def __init__(self, 
+                 items: List[Any],
+                 render_item: Callable[[Any], Component],
+                 item_height: int = 40,
+                 container_height: int = 400,
+                 buffer_size: int = 5):
+        super().__init__()
+        self.tag_name = "div"
+        self.set_prop('items', items)
+        self.set_prop('render_item', render_item)
+        self.set_prop('item_height', item_height)
+        self.set_prop('container_height', container_height)
+        self.set_prop('buffer_size', buffer_size)
+        
+        self.state.update({
+            'scroll_top': 0,
+            'visible_items': [],
+            'total_height': len(items) * item_height,
+            'padding_top': 0,
+            'padding_bottom': 0
+        })
+        
+        self.style.add(
+            height=f"{container_height}px",
+            overflow_y="auto",
+            position="relative"
+        )
+        
+        self.on_scroll = EventDelegate()
+        self.on_scroll.add(self._handle_scroll)
+        
+    def _handle_scroll(self, event: Dict[str, Any]):
+        """处理滚动事件"""
+        scroll_top = event['target'].scrollTop
+        self._update_visible_items(scroll_top)
+        
+    def _update_visible_items(self, scroll_top: int):
+        """更新可见项目列表"""
+        self.state['scroll_top'] = scroll_top
+        
+        # 计算可见范围
+        start_index = max(0, scroll_top // self.props['item_height'] - self.props['buffer_size'])
+        visible_count = (self.props['container_height'] // self.props['item_height'] + 
+                        2 * self.props['buffer_size'])
+        end_index = min(len(self.props['items']), start_index + visible_count)
+        
+        # 更新可见项目
+        self.state['visible_items'] = self.props['items'][start_index:end_index]
+        
+        # 更新padding以保持滚动位置
+        self.state['padding_top'] = start_index * self.props['item_height']
+        self.state['padding_bottom'] = (
+            (len(self.props['items']) - end_index) * self.props['item_height']
         )
         
     def render(self):
-        input_field = Element('input')
-        input_field.set_prop('type', 'text')
-        input_field.set_prop('value', self.props.get('value', ''))
-        input_field.set_prop('placeholder', self.props.get('format'))
-        input_field.style.add(
-            padding="0.5rem",
-            border="1px solid #ddd",
-            border_radius="4px",
-            font_size="1rem"
+        """渲染虚拟列表"""
+        # 容器
+        container = Component()
+        container.tag_name = "div"
+        container.style.add(
+            height="100%",
+            overflow_y="auto"
         )
         
-        container = Element('div')
-        container.style.add(position="relative")
-        container.add(input_field)
-        container.add(self.calendar)
+        # 内容包装器
+        content = Component()
+        content.tag_name = "div"
+        content.style.add(
+            position="relative",
+            height=f"{self.state['total_height']}px"
+        )
+        
+        # 可见项目容器
+        items_container = Component()
+        items_container.tag_name = "div"
+        items_container.style.add(
+            position="absolute",
+            top=f"{self.state['padding_top']}px",
+            left="0",
+            right="0"
+        )
+        
+        # 渲染可见项目
+        for item in self.state['visible_items']:
+            rendered_item = self.props['render_item'](item)
+            rendered_item.style.add(
+                height=f"{self.props['item_height']}px"
+            )
+            items_container.add_child(rendered_item)
+            
+        content.add_child(items_container)
+        container.add_child(content)
         
         return container
+
+class DraggableList(Component):
+    """可拖放的列表组件"""
+    
+    def __init__(self, 
+                 items: list[Any],
+                 render_item: Optional[Callable[[Any], Component]] = None,
+                 on_reorder: Optional[Callable[[list[Any]], None]] = None):
+        super().__init__()
+        self.tag_name = "div"
+        self.set_prop('items', items)
+        self.set_prop('render_item', render_item or self._default_render_item)
+        self.set_prop('on_reorder', on_reorder)
+        
+        self.state.update({
+            'dragging_index': None,
+            'drag_over_index': None,
+            'items': items.copy()
+        })
+        
+        # 设置容器样式
+        self.style.add(
+            position="relative",
+            user_select="none"
+        )
+        
+    def _default_render_item(self, item: Any) -> Component:
+        """默认项渲染器"""
+        text = Text(str(item))
+        text.style.add(
+            padding="1rem",
+            background_color="#ffffff",
+            border="1px solid #e0e0e0",
+            margin_bottom="0.5rem",
+            cursor="move"
+        )
+        return text
+        
+    def _handle_drag_start(self, index: int, event: dict[str, Any]):
+        """处理拖拽开始事件"""
+        try:
+            self.state['dragging_index'] = index
+            self._update()
+        except Exception as e:
+            self._logger.error(f"Error handling drag start: {e}", exc_info=True)
+        
+    def _handle_drag_over(self, index: int, event: dict[str, Any]):
+        """处理拖拽悬停事件"""
+        try:
+            if index != self.state['drag_over_index']:
+                self.state['drag_over_index'] = index
+                self._update()
+        except Exception as e:
+            self._logger.error(f"Error handling drag over: {e}", exc_info=True)
+        
+    def _handle_drop(self, index: int, event: dict[str, Any]):
+        """处理放置事件"""
+        try:
+            dragging_index = self.state['dragging_index']
+            if dragging_index is not None and dragging_index != index:
+                items = self.state['items']
+                item = items.pop(dragging_index)
+                items.insert(index, item)
+                
+                if self.props['on_reorder']:
+                    self.props['on_reorder'](items)
+                    
+            self.state.update({
+                'dragging_index': None,
+                'drag_over_index': None
+            })
+            self._update()
+            
+        except Exception as e:
+            self._logger.error(f"Error handling drop: {e}", exc_info=True)
+        
+    def render(self) -> Element:
+        """渲染可拖放列表"""
+        try:
+            container = super().render()
+            items = self.state['items']
+            dragging_index = self.state['dragging_index']
+            drag_over_index = self.state['drag_over_index']
+            
+            for i, item in enumerate(items):
+                item_container = Element('div')
+                item_container.style.add(
+                    opacity="1" if i != dragging_index else "0.5",
+                    transform="none" if i != drag_over_index else "translateY(8px)",
+                    transition="transform 0.15s ease-in-out"
+                )
+                
+                # 添加拖放事件监听器
+                item_container.set_attribute('draggable', 'true')
+                item_container.add_event_listener('dragstart', lambda e, i=i: self._handle_drag_start(i, e))
+                item_container.add_event_listener('dragover', lambda e, i=i: self._handle_drag_over(i, e))
+                item_container.add_event_listener('drop', lambda e, i=i: self._handle_drop(i, e))
+                
+                # 渲染项内容
+                item_content = self.props['render_item'](item)
+                item_container.append_child(item_content.render())
+                
+                container.append_child(item_container)
+                
+            return container
+            
+        except Exception as e:
+            self._logger.error(f"Error rendering draggable list: {e}", exc_info=True)
+            raise
 
 class Table(Component):
     """表格组件"""
@@ -884,8 +1924,7 @@ class Table(Component):
 
 class Tree(Component):
     """树形组件"""
-    
-    def __init__(self, data: list[dict[str, Any]], expanded: bool = False):
+    def __init__(self, data: List[Dict[str, Any]], expanded: bool = False):
         """
         初始化树形组件
         data: 树形数据，每个节点是一个字典，包含'id'、'label'、'children'等键
@@ -899,14 +1938,14 @@ class Tree(Component):
         if expanded:
             self._expand_all(data)
             
-    def _expand_all(self, nodes: list[dict[str, Any]]):
+    def _expand_all(self, nodes: List[Dict[str, Any]]) -> None:
         """递归展开所有节点"""
         for node in nodes:
             self.state['expanded'].add(node['id'])
-            if 'children' in node and node['children']:
+            if node.get('children'):
                 self._expand_all(node['children'])
-
-    def toggle_node(self, node_id: str):
+                
+    def toggle_node(self, node_id: str) -> None:
         """Toggle node expansion state"""
         if node_id in self.state['expanded']:
             self.state['expanded'].remove(node_id)
@@ -914,7 +1953,7 @@ class Tree(Component):
             self.state['expanded'].add(node_id)
         self._update()
         
-    def _render_node(self, node: dict[str, Any], level: int = 0) -> Element:
+    def _render_node(self, node: Dict[str, Any], level: int = 0) -> Element:
         """Render a single node and its children"""
         node_container = Element('div')
         
@@ -1080,18 +2119,6 @@ class Progress(Component):
             overflow="hidden"
         )
 
-class Tooltip(Component):
-    """提示框组件"""
-    def __init__(self, content: str, position: str = "top"):
-        super().__init__()
-        self.tag_name = "div"
-        self.set_prop('content', content)
-        self.set_prop('position', position)
-        self.style.add(
-            position="relative",
-            display="inline-block"
-        )
-
 class Badge(Component):
     """徽章组件"""
     def __init__(self, text: str, type: str = "primary", pill: bool = False):
@@ -1125,663 +2152,14 @@ class Badge(Component):
         }
         return colors.get(type, colors['primary'])
 
-class ModernModal(Component):
-    """现代模态对话框组件"""
-    def __init__(self,
-                 title: str,
-                 content: str,
-                 size: str = "md",
-                 centered: bool = True,
-                 closable: bool = True):
+class Tooltip(Component):
+    """提示框组件"""
+    def __init__(self, content: str, position: str = "top"):
         super().__init__()
         self.tag_name = "div"
-        self.set_prop('title', title)
         self.set_prop('content', content)
-        self.set_prop('size', size)
-        self.set_prop('centered', centered)
-        self.set_prop('closable', closable)
-        
-        self.state.update({
-            'visible': False
-        })
-        
-        # 设置样式
-        self.style.add(
-            position="fixed",
-            top="0",
-            left="0",
-            width="100%",
-            height="100%",
-            display="flex",
-            align_items="center" if centered else "flex-start",
-            justify_content="center",
-            background_color="rgba(0, 0, 0, 0.5)",
-            z_index="1000",
-            opacity="0",
-            visibility="hidden",
-            transition="opacity 0.3s ease-in-out, visibility 0.3s ease-in-out"
-        )
-        
-    def show(self):
-        """显示模态对话框"""
-        self.set_state('visible', True)
-        self.style.add(
-            opacity="1",
-            visibility="visible"
-        )
-        
-    def hide(self):
-        """隐藏模态对话框"""
-        self.set_state('visible', False)
-        self.style.add(
-            opacity="0",
-            visibility="hidden"
-        )
-        
-    def render(self):
-        """渲染模态对话框"""
-        dialog = Component()
-        dialog.tag_name = "div"
-        dialog.style.add(
-            background_color="#ffffff",
-            border_radius="0.5rem",
-            box_shadow="0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-            max_width=self._get_size_width(),
-            width="100%",
-            max_height="90vh",
-            display="flex",
-            flex_direction="column",
-            transform=f"scale({1 if self.state['visible'] else 0.9})",
-            transition="transform 0.3s ease-in-out"
-        )
-        
-        # Header
-        header = Component()
-        header.tag_name = "div"
-        header.style.add(
-            padding="1rem",
-            border_bottom="1px solid #e5e7eb",
-            display="flex",
-            align_items="center",
-            justify_content="space-between"
-        )
-        
-        title = Component()
-        title.tag_name = "h3"
-        title.style.add(
-            margin="0",
-            font_size="1.25rem",
-            font_weight="600",
-            color="#111827"
-        )
-        title.set_text(self.props['title'])
-        header.add_child(title)
-        
-        if self.props['closable']:
-            close_button = Component()
-            close_button.tag_name = "button"
-            close_button.style.add(
-                background="none",
-                border="none",
-                padding="0.5rem",
-                cursor="pointer",
-                color="#6b7280"
-            )
-            close_button.set_text("×")
-            close_button.on_click.add(self.hide)
-            header.add_child(close_button)
-            
-        dialog.add_child(header)
-        
-        # Content
-        content = Component()
-        content.tag_name = "div"
-        content.style.add(
-            padding="1rem",
-            overflow_y="auto"
-        )
-        
-        if isinstance(self.props['content'], str):
-            content.set_text(self.props['content'])
-        else:
-            content.add_child(self.props['content'])
-            
-        dialog.add_child(content)
-        
-        return dialog
-        
-    def _get_size_width(self) -> str:
-        """Get modal width based on size"""
-        sizes = {
-            "sm": "28rem",
-            "md": "32rem",
-            "lg": "48rem",
-            "xl": "64rem",
-            "full": "100%"
-        }
-        return sizes.get(self.props['size'], sizes['md'])
-
-class ModernTabs(Component):
-    """现代选项卡组件"""
-    
-    def __init__(self,
-                 tabs: list[dict[str, Any]],
-                 active_index: int = 0,
-                 variant: str = "default"):
-        super().__init__()
-        self.tag_name = "div"
-        self.set_prop('tabs', tabs)
-        self.set_prop('variant', variant)
-        
-        self.state.update({
-            'active_index': active_index
-        })
-
-    def _handle_tab_click(self, index: int):
-        """Handle tab click"""
-        self.set_state('active_index', index)
-        
-    def render(self):
-        """Render tabs"""
-        container = Component()
-        container.tag_name = "div"
-        
-        # Tab list
-        tab_list = Component()
-        tab_list.tag_name = "div"
-        tab_list.style.add(
-            display="flex",
-            border_bottom="1px solid #e5e7eb"
-        )
-        
-        for i, tab in enumerate(self.props['tabs']):
-            tab_button = Component()
-            tab_button.tag_name = "button"
-            tab_button.style.add(
-                padding="0.75rem 1rem",
-                border="none",
-                background="none",
-                font_weight="500",
-                color="#6b7280" if i != self.state['active_index'] else "#111827",
-                border_bottom=f"2px solid {'transparent' if i != self.state['active_index'] else '#3b82f6'}",
-                cursor="pointer",
-                transition="all 0.2s ease-in-out"
-            )
-            tab_button.set_text(tab['label'])
-            tab_button.on_click.add(lambda e, i=i: self._handle_tab_click(i))
-            tab_list.add_child(tab_button)
-            
-        container.add_child(tab_list)
-        
-        # Tab panels
-        panel_container = Component()
-        panel_container.tag_name = "div"
-        panel_container.style.add(
-            padding="1rem"
-        )
-        
-        active_tab = self.props['tabs'][self.state['active_index']]
-        if isinstance(active_tab['content'], str):
-            panel_container.set_text(active_tab['content'])
-        else:
-            panel_container.add_child(active_tab['content'])
-            
-        container.add_child(panel_container)
-        
-        return container
-
-class ModernAccordion(Component):
-    """现代手风琴组件"""
-    
-    def __init__(self,
-                 items: list[dict[str, Any]],
-                 multiple: bool = False):
-        super().__init__()
-        self.tag_name = "div"
-        self.set_prop('items', items)
-        self.set_prop('multiple', multiple)
-        
-        self.state.update({
-            'expanded': set()
-        })
-
-    def _toggle_item(self, index: int):
-        """Toggle accordion item"""
-        expanded = self.state['expanded'].copy()
-        
-        if not self.props['multiple']:
-            expanded.clear()
-            
-        if index in expanded:
-            expanded.remove(index)
-        else:
-            expanded.add(index)
-            
-        self.set_state('expanded', expanded)
-        
-    def render(self):
-        """Render accordion"""
-        container = Component()
-        container.tag_name = "div"
-        container.style.add(
-            border="1px solid #e5e7eb",
-            border_radius="0.5rem",
-            overflow="hidden"
-        )
-        
-        for i, item in enumerate(self.props['items']):
-            # Item container
-            item_container = Component()
-            item_container.tag_name = "div"
-            item_container.style.add(
-                border_top="1px solid #e5e7eb" if i > 0 else "none"
-            )
-            
-            # Header
-            header = Component()
-            header.tag_name = "button"
-            header.style.add(
-                width="100%",
-                padding="1rem",
-                background="none",
-                border="none",
-                text_align="left",
-                cursor="pointer",
-                display="flex",
-                align_items="center",
-                justify_content="space-between"
-            )
-            
-            # Title
-            title = Component()
-            title.tag_name = "span"
-            title.style.add(
-                font_weight="500",
-                color="#111827"
-            )
-            title.set_text(item['title'])
-            header.add_child(title)
-            
-            # Icon
-            icon = Component()
-            icon.tag_name = "span"
-            icon.style.add(
-                transform=f"rotate({90 if i in self.state['expanded'] else 0}deg)",
-                transition="transform 0.2s ease-in-out"
-            )
-            icon.set_text("›")
-            header.add_child(icon)
-            
-            header.on_click.add(lambda e, i=i: self._toggle_item(i))
-            item_container.add_child(header)
-            
-            # Content
-            content = Component()
-            content.tag_name = "div"
-            content.style.add(
-                padding="0 1rem",
-                max_height=f"{'none' if i in self.state['expanded'] else '0'}",
-                overflow="hidden",
-                transition="max-height 0.3s ease-in-out"
-            )
-            
-            if isinstance(item['content'], str):
-                content.set_text(item['content'])
-            else:
-                content.add_child(item['content'])
-                
-            item_container.add_child(content)
-            container.add_child(item_container)
-            
-        return container
-
-class ModernToast(Component):
-    """现代吐司通知组件"""
-    
-    def __init__(self,
-                 message: str,
-                 type: str = "info",
-                 duration: int = 3000,
-                 position: str = "bottom-right"):
-        super().__init__()
-        self.tag_name = "div"
-        self.set_prop('message', message)
-        self.set_prop('type', type)
-        self.set_prop('duration', duration)
         self.set_prop('position', position)
-        
-        self.state.update({
-            'visible': False
-        })
-        
-        # 设置样式
-        self.style.add(
-            position="fixed",
-            padding="1rem",
-            border_radius="0.5rem",
-            background_color=self._get_background_color(),
-            color="#ffffff",
-            box_shadow="0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-            max_width="24rem",
-            opacity="0",
-            transform="translateY(1rem)",
-            transition="opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
-            **self._get_position_style()
-        )
-        
-    def show(self):
-        """显示吐司通知"""
-        self.set_state('visible', True)
-        self.style.add(
-            opacity="1",
-            transform="translateY(0)"
-        )
-        
-        # Auto hide
-        if self.props['duration'] > 0:
-            def hide():
-                self.hide()
-            setTimeout(hide, self.props['duration'])
-            
-    def hide(self):
-        """隐藏吐司通知"""
-        self.set_state('visible', False)
-        self.style.add(
-            opacity="0",
-            transform="translateY(1rem)"
-        )
-        
-    def _get_background_color(self) -> str:
-        """Get background color based on type"""
-        colors = {
-            "info": "#3b82f6",
-            "success": "#10b981",
-            "warning": "#f59e0b",
-            "error": "#ef4444"
-        }
-        return colors.get(self.props['type'], colors['info'])
-        
-    def _get_position_style(self) -> dict[str, str]:
-        """Get position style"""
-        positions = {
-            "top-left": {"top": "1rem", "left": "1rem"},
-            "top-right": {"top": "1rem", "right": "1rem"},
-            "bottom-left": {"bottom": "1rem", "left": "1rem"},
-            "bottom-right": {"bottom": "1rem", "right": "1rem"}
-        }
-        return positions.get(self.props['position'], positions['bottom-right'])
-        
-    def render(self):
-        """Render toast"""
-        container = Component()
-        container.tag_name = "div"
-        container.style.add(
-            display="flex",
-            align_items="center",
-            gap="0.5rem"
-        )
-        
-        # Icon
-        icon = Component()
-        icon.tag_name = "span"
-        icon.style.add(
-            font_size="1.25rem"
-        )
-        icon.set_text(self._get_icon())
-        container.add_child(icon)
-        
-        # Message
-        message = Component()
-        message.tag_name = "span"
-        message.set_text(self.props['message'])
-        container.add_child(message)
-        
-        return container
-        
-    def _get_icon(self) -> str:
-        """Get icon based on type"""
-        icons = {
-            "info": "ℹ",
-            "success": "✓",
-            "warning": "⚠",
-            "error": "✕"
-        }
-        return icons.get(self.props['type'], icons['info'])
-
-class VirtualList(Component):
-    """虚拟滚动列表组件"""
-    
-    def __init__(self, 
-                 items: list[Any],
-                 item_height: int = 40,
-                 viewport_height: int = 400,
-                 overscan: int = 3,
-                 render_item: Callable[[Any], Component] | None = None):
-        super().__init__()
-        self.tag_name = "div"
-        self.set_prop('items', items)
-        self.set_prop('item_height', item_height)
-        self.set_prop('viewport_height', viewport_height)
-        self.set_prop('overscan', overscan)
-        self.set_prop('render_item', render_item or self._default_render_item)
-        
-        self.state.update({
-            'scroll_top': 0,
-            'start_index': 0,
-            'end_index': 0,
-            'rendered_items': {}  # 缓存已渲染的项
-        })
-        
-        # 设置容器样式
         self.style.add(
             position="relative",
-            height=f"{viewport_height}px",
-            overflow_y="auto"
+            display="inline-block"
         )
-        
-        # 监听滚动事件
-        self.on_scroll = EventDelegate()
-        self.on_scroll.add(self._handle_scroll)
-        
-    def _handle_scroll(self, event: dict[str, Any]):
-        """处理滚动事件"""
-        try:
-            scroll_top = event.get('target', {}).get('scrollTop', 0)
-            self._update_visible_range(scroll_top)
-        except Exception as e:
-            self._logger.error(f"Error handling scroll: {e}", exc_info=True)
-        
-    def _update_visible_range(self, scroll_top: int):
-        """更新可见项范围"""
-        try:
-            item_height = self.props['item_height']
-            viewport_height = self.props['viewport_height']
-            overscan = self.props['overscan']
-            total_items = len(self.props['items'])
-            
-            # 计算可见范围
-            start = max(0, scroll_top // item_height - overscan)
-            end = min(
-                total_items,
-                (scroll_top + viewport_height) // item_height + overscan
-            )
-            
-            if start != self.state['start_index'] or end != self.state['end_index']:
-                self.state.update({
-                    'scroll_top': scroll_top,
-                    'start_index': start,
-                    'end_index': end
-                })
-                self._update()
-                
-        except Exception as e:
-            self._logger.error(f"Error updating visible range: {e}", exc_info=True)
-        
-    def _default_render_item(self, item: Any) -> Component:
-        """默认项渲染器"""
-        text = Text(str(item))
-        text.style.add(padding="0.5rem")
-        return text
-        
-    def render(self) -> Element:
-        """渲染虚拟列表"""
-        try:
-            container = super().render()
-            items = self.props['items']
-            item_height = self.props['item_height']
-            start = self.state['start_index']
-            end = self.state['end_index']
-            
-            # 创建内容容器
-            content = Element('div')
-            content.style.add(
-                height=f"{len(items) * item_height}px",
-                position="relative"
-            )
-            
-            # 只渲染可见范围内的项
-            for i in range(start, end):
-                if i >= len(items):
-                    break
-                    
-                item = items[i]
-                item_key = f"item_{i}"
-                
-                # 检查缓存
-                if item_key not in self.state['rendered_items']:
-                    self.state['rendered_items'][item_key] = self.props['render_item'](item)
-                    
-                item_component = self.state['rendered_items'][item_key]
-                item_element = item_component.render()
-                item_element.style.add(
-                    position="absolute",
-                    top=f"{i * item_height}px",
-                    left="0",
-                    right="0",
-                    height=f"{item_height}px"
-                )
-                
-                content.append_child(item_element)
-                
-            # 清理不可见项的缓存
-            visible_keys = {f"item_{i}" for i in range(start, end)}
-            self.state['rendered_items'] = {
-                k: v for k, v in self.state['rendered_items'].items()
-                if k in visible_keys
-            }
-            
-            container.append_child(content)
-            return container
-            
-        except Exception as e:
-            self._logger.error(f"Error rendering virtual list: {e}", exc_info=True)
-            raise
-
-class DraggableList(Component):
-    """可拖放的列表组件"""
-    
-    def __init__(self, 
-                 items: list[Any],
-                 render_item: Callable[[Any], Component] | None = None,
-                 on_reorder: Optional[Callable[[list[Any]], None]] = None):
-        super().__init__()
-        self.tag_name = "div"
-        self.set_prop('items', items)
-        self.set_prop('render_item', render_item or self._default_render_item)
-        self.set_prop('on_reorder', on_reorder)
-        
-        self.state.update({
-            'dragging_index': None,
-            'drag_over_index': None,
-            'items': items.copy()
-        })
-        
-        # 设置容器样式
-        self.style.add(
-            position="relative",
-            user_select="none"
-        )
-        
-    def _default_render_item(self, item: Any) -> Component:
-        """默认项渲染器"""
-        text = Text(str(item))
-        text.style.add(
-            padding="1rem",
-            background_color="#ffffff",
-            border="1px solid #e0e0e0",
-            margin_bottom="0.5rem",
-            cursor="move"
-        )
-        return text
-        
-    def _handle_drag_start(self, index: int, event: dict[str, Any]):
-        """处理拖拽开始事件"""
-        try:
-            self.state['dragging_index'] = index
-            self._update()
-        except Exception as e:
-            self._logger.error(f"Error handling drag start: {e}", exc_info=True)
-        
-    def _handle_drag_over(self, index: int, event: dict[str, Any]):
-        """处理拖拽悬停事件"""
-        try:
-            if index != self.state['drag_over_index']:
-                self.state['drag_over_index'] = index
-                self._update()
-        except Exception as e:
-            self._logger.error(f"Error handling drag over: {e}", exc_info=True)
-        
-    def _handle_drop(self, index: int, event: dict[str, Any]):
-        """处理放置事件"""
-        try:
-            dragging_index = self.state['dragging_index']
-            if dragging_index is not None and dragging_index != index:
-                items = self.state['items']
-                item = items.pop(dragging_index)
-                items.insert(index, item)
-                
-                if self.props['on_reorder']:
-                    self.props['on_reorder'](items)
-                    
-            self.state.update({
-                'dragging_index': None,
-                'drag_over_index': None
-            })
-            self._update()
-            
-        except Exception as e:
-            self._logger.error(f"Error handling drop: {e}", exc_info=True)
-        
-    def render(self) -> Element:
-        """渲染可拖放列表"""
-        try:
-            container = super().render()
-            items = self.state['items']
-            dragging_index = self.state['dragging_index']
-            drag_over_index = self.state['drag_over_index']
-            
-            for i, item in enumerate(items):
-                item_container = Element('div')
-                item_container.style.add(
-                    opacity="1" if i != dragging_index else "0.5",
-                    transform="none" if i != drag_over_index else "translateY(8px)",
-                    transition="transform 0.15s ease-in-out"
-                )
-                
-                # 添加拖放事件监听器
-                item_container.set_attribute('draggable', 'true')
-                item_container.add_event_listener('dragstart', lambda e, i=i: self._handle_drag_start(i, e))
-                item_container.add_event_listener('dragover', lambda e, i=i: self._handle_drag_over(i, e))
-                item_container.add_event_listener('drop', lambda e, i=i: self._handle_drop(i, e))
-                
-                # 渲染项内容
-                item_content = self.props['render_item'](item)
-                item_container.append_child(item_content.render())
-                
-                container.append_child(item_container)
-                
-            return container
-            
-        except Exception as e:
-            self._logger.error(f"Error rendering draggable list: {e}", exc_info=True)
-            raise

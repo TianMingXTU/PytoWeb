@@ -2,89 +2,144 @@
 PytoWeb应用主类
 """
 
-from typing import Optional, Any, Callable
+from __future__ import annotations
+from typing import Optional, Any, Callable, List, Dict, Union, TypeVar, TYPE_CHECKING
+from dataclasses import dataclass
 from .server import Server
 from .router import Router
 from .components import Component
 from .vdom import VDOMRenderer
 import logging
+import sys
+import traceback
+from http import HTTPStatus
+
+if TYPE_CHECKING:
+    from .middleware import Middleware
+
+T = TypeVar('T', bound='App')
+
+class AppError(Exception):
+    """PytoWeb应用异常基类"""
+    pass
+
+@dataclass
+class AppConfig:
+    """应用配置"""
+    host: str = "localhost"
+    port: int = 8000
+    debug: bool = False
+    static_dir: str = "static"
+    template_dir: str = "templates"
+    secret_key: Optional[str] = None
 
 class App:
     """PytoWeb应用主类"""
     
-    def __init__(self):
-        self.server = Server()
-        self.router: Optional[Router] = None
-        self.root: Optional[Component] = None
-        self.renderer = VDOMRenderer()
-        self.middleware = []
-        self._logger = logging.getLogger(__name__)
-        
-    def use(self, middleware: Any):
-        """添加中间件"""
-        if isinstance(middleware, Router):
-            self.router = middleware
-        else:
-            self.middleware.append(middleware)
+    def __init__(self, config: Optional[AppConfig] = None):
+        """初始化应用"""
+        try:
+            self.config = config or AppConfig()
+            self.server = Server(self.config.host, self.config.port)
+            self.router = Router()
+            self.root: Optional[Component] = None
+            self.renderer = VDOMRenderer()
+            self._logger = logging.getLogger(__name__)
             
-    def mount(self, component: Component):
+            # 配置日志
+            if self.config.debug:
+                logging.basicConfig(
+                    level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                )
+                
+            # 设置静态文件目录
+            self.server.static_dir = self.config.static_dir
+            
+            # 注册默认路由处理器
+            self.router.add('/', self._handle_root)
+            self.server.add_route('/', self.router.dispatch)
+            
+        except Exception as e:
+            raise AppError(f"Failed to initialize application: {e}") from e
+            
+    def _handle_root(self, request: Dict[str, Any]) -> str:
+        """处理根路由请求"""
+        print("[DEBUG] Handling root request")
+        if self.root is None:
+            raise AppError("No root component mounted")
+        try:
+            html = self.render(self.root)
+            print(f"[DEBUG] Generated HTML length: {len(html)}")
+            return html
+        except Exception as e:
+            print(f"[DEBUG] Error rendering root: {e}")
+            raise AppError(f"Failed to render root: {e}") from e
+            
+    def mount(self: T, component: Component) -> T:
         """挂载根组件"""
-        self.root = component
+        try:
+            if not isinstance(component, Component):
+                raise AppError("Component must be an instance of Component")
+            self.root = component
+            return self
+        except Exception as e:
+            if isinstance(e, AppError):
+                raise
+            raise AppError(f"Failed to mount component: {e}") from e
         
     def render(self, component: Component) -> str:
         """渲染组件"""
-        return f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>PytoWeb App</title>
-            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        </head>
-        <body>
-            {self.renderer.create_element(component)}
-        </body>
-        </html>
-        """
-        
-    def handle_request(self, handler: Callable, *args, **kwargs) -> str:
-        """处理请求并渲染响应"""
         try:
-            # 调用路由处理器
-            result = handler(*args, **kwargs)
-            
-            # 如果返回的是组件，渲染它
-            if isinstance(result, Component):
-                return self.render(result)
-            
-            # 否则直接返回结果
-            return str(result)
-        except Exception as e:
-            self._logger.error(f"Error handling request: {e}", exc_info=True)
-            raise
-        
-    def run(self, host: str = "localhost", port: int = 8000, debug: bool = False):
-        """启动应用"""
-        if debug:
-            logging.basicConfig(level=logging.DEBUG)
-            
-        self._logger.info(f"Starting PytoWeb app on http://{host}:{port}")
-        
-        # 注册路由处理器
-        if self.router:
-            for route in self.router.routes:
-                # 包装路由处理器
-                wrapped_handler = lambda *args, **kwargs: self.handle_request(route.handler, *args, **kwargs)
-                self.server.add_route(route.path, wrapped_handler)
+            if not isinstance(component, Component):
+                raise AppError("Component must be an instance of Component")
                 
-        # 注册中间件
-        for middleware in self.middleware:
-            self.server.use(middleware)
+            vdom = component.render()
+            html = self.renderer.render_to_string(vdom)
             
-        # 启动服务器
+            return f"""
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>PytoWeb App</title>
+                <style>{self._get_styles()}</style>
+                <script>{self._get_scripts()}</script>
+            </head>
+            <body>
+                <div id="app">{html}</div>
+            </body>
+            </html>
+            """
+        except Exception as e:
+            if isinstance(e, AppError):
+                raise
+            raise AppError(f"Failed to render component: {e}") from e
+            
+    def _get_styles(self) -> str:
+        """获取应用样式"""
         try:
+            from .styles import get_global_styles
+            return get_global_styles()
+        except Exception as e:
+            self._logger.error(f"Failed to get styles: {e}")
+            return ""
+            
+    def _get_scripts(self) -> str:
+        """获取应用脚本"""
+        try:
+            from .events import get_client_script
+            return get_client_script()
+        except Exception as e:
+            self._logger.error(f"Failed to get scripts: {e}")
+            return ""
+            
+    def run(self, host: str = "127.0.0.1", port: int = 8000, debug: bool = False):
+        """运行应用"""
+        try:
+            if debug:
+                self._logger.setLevel(logging.DEBUG)
             self.server.run(host, port)
         except Exception as e:
-            self._logger.error(f"Error starting server: {e}", exc_info=True)
-            raise
+            raise AppError(f"Failed to run application: {e}") from e

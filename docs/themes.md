@@ -291,4 +291,183 @@ def create_color_palette(base_color: str) -> dict:
     }
 ```
 
-{{ ... }}
+## PytoWeb 主题系统 | PytoWeb Theme System
+
+PytoWeb 提供了一个强大的主题系统，允许你在应用程序中创建和管理一致的视觉风格。 | PytoWeb provides a powerful theming system that allows you to create and manage consistent visual styles across your application.
+
+### 基本用法 | Basic Usage
+
+```python
+from pytoweb.themes import Theme, ThemeProvider
+
+# 创建主题
+theme = Theme(name="custom")
+
+# 设置为当前主题
+ThemeProvider.set_theme(theme)
+
+# 使用主题
+current_theme = ThemeProvider.use_theme()
+```
+
+### 设计令牌 | Design Tokens
+
+#### 颜色 | Colors
+
+```python
+# 品牌颜色
+primary_color = theme.tokens["colors"]["primary"]["main"]      # "#1976d2"
+primary_light = theme.tokens["colors"]["primary"]["light"]     # "#42a5f5"
+primary_dark = theme.tokens["colors"]["primary"]["dark"]       # "#1565c0"
+primary_contrast = theme.tokens["colors"]["primary"]["contrast"] # "#ffffff"
+
+# 语义颜色
+success = theme.tokens["colors"]["success"]["main"]  # "#2e7d32"
+warning = theme.tokens["colors"]["warning"]["main"]  # "#ed6c02"
+error = theme.tokens["colors"]["error"]["main"]      # "#d32f2f"
+info = theme.tokens["colors"]["info"]["main"]        # "#0288d1"
+
+# 灰度
+gray_50 = theme.tokens["colors"]["gray"]["50"]   # "#fafafa"
+gray_500 = theme.tokens["colors"]["gray"]["500"] # "#9e9e9e"
+gray_900 = theme.tokens["colors"]["gray"]["900"] # "#212121"
+
+# 背景颜色
+background = theme.tokens["colors"]["background"]["default"] # "#ffffff"
+paper = theme.tokens["colors"]["background"]["paper"]       # "#ffffff"
+alt = theme.tokens["colors"]["background"]["alt"]          # "#f8f9fa"
+
+# 文本颜色
+text_primary = theme.tokens["colors"]["text"]["primary"]     # "rgba(0, 0, 0, 0.87)"
+text_secondary = theme.tokens["colors"]["text"]["secondary"] # "rgba(0, 0, 0, 0.6)"
+text_disabled = theme.tokens["colors"]["text"]["disabled"]   # "rgba(0, 0, 0, 0.38)"
+```
+
+#### 排版 | Typography
+
+```python
+# 字体家族
+primary_font = theme.tokens["typography"]["fontFamily"]["primary"]
+code_font = theme.tokens["typography"]["fontFamily"]["code"]
+
+# 字体权重
+light = theme.tokens["typography"]["fontWeight"]["light"]     # 300
+regular = theme.tokens["typography"]["fontWeight"]["regular"] # 400
+medium = theme.tokens["typography"]["fontWeight"]["medium"]   # 500
+semibold = theme.tokens["typography"]["fontWeight"]["semibold"] # 600
+bold = theme.tokens["typography"]["fontWeight"]["bold"]       # 700
+
+# 字体大小
+font_xs = theme.tokens["typography"]["fontSize"]["xs"]   # "0.75rem"
+font_sm = theme.tokens["typography"]["fontSize"]["sm"]   # "0.875rem"
+font_base = theme.tokens["typography"]["fontSize"]["base"] # "1rem"
+font_xl = theme.tokens["typography"]["fontSize"]["xl"]   # "1.25rem"
+font_2xl = theme.tokens["typography"]["fontSize"]["2xl"] # "1.5rem"
+```
+
+### 自定义主题 | Custom Themes
+
+创建自定义主题：
+
+```python
+class DarkTheme(Theme):
+    def __init__(self):
+        super().__init__(name="dark")
+        
+        # 覆盖颜色
+        self.tokens["colors"]["background"]["default"] = "#121212"
+        self.tokens["colors"]["background"]["paper"] = "#1e1e1e"
+        
+        # 覆盖文本颜色
+        self.tokens["colors"]["text"]["primary"] = "rgba(255, 255, 255, 0.87)"
+        self.tokens["colors"]["text"]["secondary"] = "rgba(255, 255, 255, 0.6)"
+        
+        # 自定义令牌
+        self.tokens["colors"]["custom"] = {
+            "accent": "#ff4081",
+            "surface": "#2c2c2c"
+        }
+```
+
+### 主题提供者 | ThemeProvider
+
+管理应用程序中的主题：
+
+```python
+# 设置主题
+ThemeProvider.set_theme(DarkTheme())
+
+# 获取当前主题
+theme = ThemeProvider.get_theme()
+
+# 使用主题（返回当前主题或默认主题）
+theme = ThemeProvider.use_theme()
+```
+
+### 组件集成 | Component Integration
+
+使用主题：
+
+```python
+from pytoweb.components import Component
+from pytoweb.themes import ThemeProvider
+
+class StyledButton(Component):
+    def render(self):
+        theme = ThemeProvider.use_theme()
+        
+        return {
+            "tag": "button",
+            "props": {
+                "style": {
+                    "backgroundColor": theme.tokens["colors"]["primary"]["main"],
+                    "color": theme.tokens["colors"]["primary"]["contrast"],
+                    "fontFamily": theme.tokens["typography"]["fontFamily"]["primary"],
+                    "fontSize": theme.tokens["typography"]["fontSize"]["base"],
+                    "fontWeight": theme.tokens["typography"]["fontWeight"]["medium"],
+                    "padding": theme.tokens["spacing"]["3"],
+                    "borderRadius": theme.tokens["borderRadius"]["md"]
+                }
+            },
+            "children": ["Click Me"]
+        }
+```
+
+### 响应式设计 | Responsive Design
+
+主题支持响应式设计：
+
+```python
+# 分辨率
+xs = theme.tokens["breakpoints"]["xs"]  # "0px"
+sm = theme.tokens["breakpoints"]["sm"]  # "600px"
+md = theme.tokens["breakpoints"]["md"]  # "900px"
+lg = theme.tokens["breakpoints"]["lg"]  # "1200px"
+xl = theme.tokens["breakpoints"]["xl"]  # "1536px"
+
+# 间距
+spacing = theme.tokens["spacing"]
+margin = {
+    "xs": spacing["2"],    # "0.5rem"
+    "sm": spacing["4"],    # "1rem"
+    "md": spacing["6"],    # "1.5rem"
+    "lg": spacing["8"]     # "2rem"
+}
+```
+
+### 最佳实践 | Best Practices
+
+1. 使用主题令牌代替硬编码值
+2. 创建语义颜色别名
+3. 维护一致的间距尺度
+4. 使用排版尺度进行字体大小
+5. 支持暗黑模式
+6. 保持主题可维护和可扩展
+
+### 性能考虑 | Performance Considerations
+
+1. 主题令牌被缓存
+2. 主题更改触发最小的重新渲染
+3. 使用浅比较进行主题更新
+4. 避免主题结构中的深度嵌套
+5. 通过令牌重用公共值

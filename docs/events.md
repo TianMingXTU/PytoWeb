@@ -1,285 +1,231 @@
-# Event System | 事件系统
+# PytoWeb Event System | PytoWeb 事件系统
 
-PytoWeb provides a powerful event system that handles both DOM events and custom events.
-PytoWeb 提供了一个强大的事件系统，可以处理 DOM 事件和自定义事件。
+PytoWeb provides a powerful event system that handles both Python and JavaScript events, with support for event delegation, batching, and state management.
 
-## EventHandler
+## Core Components | 核心组件
 
-The `EventHandler` class is the base class for all event handlers.
-`EventHandler` 类是所有事件处理器的基类。
+### Event Class | 事件类
 
-```python
-from pytoweb.events import EventHandler
-
-class EventHandler:
-    def __init__(self, event_type: str, callback: Callable):
-        self.event_type = event_type
-        self.callback = callback
-```
-
-### Built-in Event Types | 内置事件类型
-
-```python
-# Mouse Events | 鼠标事件
-CLICK = 'click'
-DBLCLICK = 'dblclick'
-MOUSEDOWN = 'mousedown'
-MOUSEUP = 'mouseup'
-MOUSEMOVE = 'mousemove'
-MOUSEENTER = 'mouseenter'
-MOUSELEAVE = 'mouseleave'
-
-# Keyboard Events | 键盘事件
-KEYDOWN = 'keydown'
-KEYUP = 'keyup'
-KEYPRESS = 'keypress'
-
-# Form Events | 表单事件
-SUBMIT = 'submit'
-CHANGE = 'change'
-INPUT = 'input'
-FOCUS = 'focus'
-BLUR = 'blur'
-
-# Document Events | 文档事件
-LOAD = 'load'
-UNLOAD = 'unload'
-RESIZE = 'resize'
-SCROLL = 'scroll'
-```
-
-## Event
-
-The `Event` class represents an event in the system.
-`Event` 类代表系统中的一个事件。
+The base class for all events in PytoWeb:
 
 ```python
 from pytoweb.events import Event
 
-class Event:
-    def __init__(self, event_type: str, target: Any = None, data: Dict = None):
-        self.type = event_type
-        self.target = target
-        self.data = data or {}
-        self.timestamp = time.time()
+# Create an event
+event = Event(
+    event_type="click",
+    target=button_element,
+    data={"x": 100, "y": 200}
+)
+
+# Control event flow
+event.stop_propagation()  # Stop event bubbling
+event.prevent_default()   # Prevent default behavior
 ```
 
-### Event Properties | 事件属性
+### EventHandler | 事件处理器
+
+Configure how events are handled:
 
 ```python
-event = Event('click', button_element)
-print(event.type)      # 'click'
-print(event.target)    # <Button element>
-print(event.data)      # {}
-print(event.timestamp) # 1234567890.123
+from pytoweb.events import EventHandler
+
+# Create an event handler
+handler = EventHandler(
+    callback=lambda e: print(f"Event: {e.type}"),
+    once=True,           # Only trigger once
+    capture=False,       # Use bubbling phase
+    passive=True         # Don't call preventDefault()
+)
 ```
 
-## EventEmitter
+### EventBridge | 事件桥接器
 
-The `EventEmitter` class provides event emission and subscription capabilities.
-`EventEmitter` 类提供事件发射和订阅功能。
+Bridges Python and JavaScript events:
+
+```python
+from pytoweb.events import EventBridge
+
+# Register a Python handler for JavaScript events
+@EventBridge.register("click")
+def handle_click(event_data):
+    print(f"Click at: {event_data['clientX']}, {event_data['clientY']}")
+
+# Available event data from JavaScript
+event_data = {
+    "type": "click",
+    "target": {
+        "id": "button-1",
+        "value": "Click me",
+        "checked": False,
+        "dataset": {},
+        "scrollTop": 0,
+        "scrollHeight": 100,
+        "clientHeight": 50
+    },
+    "clientX": 100,
+    "clientY": 200,
+    "timestamp": 1234567890
+}
+```
+
+### EventDelegate | 事件委托
+
+Efficiently handle events for multiple elements:
+
+```python
+from pytoweb.events import EventDelegate
+
+# Create a delegate
+delegate = EventDelegate()
+
+# Add handlers
+def on_click(event):
+    print(f"Clicked: {event.target.id}")
+
+delegate.add(on_click)
+
+# Remove handler
+delegate.remove(on_click)
+
+# Clear all handlers
+delegate.clear()
+```
+
+### EventEmitter | 事件发射器
+
+Enhanced event emitter with delegation and batching support:
 
 ```python
 from pytoweb.events import EventEmitter
 
-class EventEmitter:
-    def __init__(self):
-        self._handlers: Dict[str, List[EventHandler]] = {}
-```
-
-### Methods | 方法
-
-#### Adding Event Handlers | 添加事件处理器
-
-```python
-# Basic usage | 基础用法
 emitter = EventEmitter()
-emitter.on('click', lambda e: print('Clicked!'))
 
-# With decorator | 使用装饰器
-@emitter.on('click')
-def handle_click(event):
-    print('Clicked!')
+# Add event listener
+emitter.on("click", 
+    callback=lambda e: print("Clicked!"),
+    selector=".button",  # Only for elements matching selector
+    once=True,          # Remove after first trigger
+    capture=False,      # Use bubbling phase
+    passive=True        # Don't call preventDefault()
+)
 
-# One-time handler | 一次性处理器
-emitter.once('load', lambda e: print('Loaded!'))
+# Remove listener
+emitter.off("click", callback)
+
+# Emit event
+emitter.emit(Event("click", target=button))
+
+# Batch processing
+emitter.add_batch_handler("scroll", 
+    lambda events: print(f"Processed {len(events)} scroll events")
+)
 ```
 
-#### Removing Event Handlers | 移除事件处理器
+### EventManager | 事件管理器
+
+Global event management system:
 
 ```python
-# Remove specific handler | 移除特定处理器
-emitter.off('click', handler)
+from pytoweb.events import EventManager
 
-# Remove all handlers for event | 移除事件所有处理器
-emitter.off('click')
+manager = EventManager()
 
-# Remove all handlers | 移除所有处理器
-emitter.clear()
+# Add global listener
+manager.add_listener(component, "click")
+
+# Remove listener
+manager.remove_listener(component, "click")
+
+# Dispatch single event
+manager.dispatch_event(event)
+
+# Batch dispatch
+events = [event1, event2, event3]
+manager.dispatch_batch(events)
 ```
 
-#### Emitting Events | 发射事件
+## Event Flow | 事件流
+
+Events in PytoWeb follow a similar flow to DOM events:
+
+1. **Capture Phase**: Events travel from root to target
+2. **Target Phase**: Event reaches target element
+3. **Bubble Phase**: Events bubble up from target to root
 
 ```python
-# Basic event | 基础事件
-emitter.emit('click')
+# Capture phase handler
+emitter.on("click", handler, capture=True)
 
-# Event with data | 带数据事件
-emitter.emit('change', {'value': 'new value'})
-
-# Async event emission | 异步事件发射
-await emitter.emit_async('load')
+# Bubble phase handler (default)
+emitter.on("click", handler)
 ```
 
-## Component Event Integration | 组件事件集成
+## Performance Optimization | 性能优化
 
-Example of using events in a component:
-在组件中使用事件的示例：
+### Event Delegation | 事件委托
+
+Instead of attaching handlers to each element, use delegation:
 
 ```python
-from pytoweb.components import Component
-from pytoweb.events import EventEmitter
+# Bad: Individual handlers
+for button in buttons:
+    emitter.on("click", handler, target=button)
 
-class Button(Component):
+# Good: Use delegation
+emitter.on("click", handler, selector=".button")
+```
+
+### Event Batching | 事件批处理
+
+Batch process high-frequency events:
+
+```python
+# Add batch handler for scroll events
+emitter.add_batch_handler("scroll", process_scroll_batch)
+
+# Batch processing happens automatically every ~16.67ms (60fps)
+def process_scroll_batch(events):
+    # Process multiple scroll events at once
+    final_scroll_position = events[-1].data["scrollTop"]
+    update_scroll_indicator(final_scroll_position)
+```
+
+### Weak References | 弱引用
+
+The event system uses weak references to prevent memory leaks:
+
+```python
+# Listeners are automatically cleaned up when components are destroyed
+manager.add_listener(component, "click")
+```
+
+## State Integration | 状态集成
+
+Events can trigger state updates:
+
+```python
+from pytoweb.state import StateManager
+
+class Counter(Component):
     def __init__(self):
-        super().__init__()
-        self.events = EventEmitter()
+        self.state = StateManager({"count": 0})
         
-    def on_click(self, event):
-        self.events.emit('click', {
-            'target': self,
-            'x': event.x,
-            'y': event.y
-        })
+    def handle_click(self, event):
+        self.state.update({"count": self.state["count"] + 1})
         
     def render(self):
-        return {
-            'tag': 'button',
-            'props': {
-                'onClick': self.on_click
-            },
-            'children': ['Click me']
-        }
+        return Button(
+            text=f"Count: {self.state['count']}",
+            on_click=self.handle_click
+        )
 ```
 
-## Event Delegation | 事件委托
+## Best Practices | 最佳实践
 
-Example of event delegation pattern:
-事件委托模式示例：
-
-```python
-class Container(Component):
-    def __init__(self):
-        super().__init__()
-        self.events = EventEmitter()
-        
-    def handle_child_event(self, event):
-        # Delegate event to appropriate handler
-        child_id = event.target.id
-        if child_id in self.child_handlers:
-            self.child_handlers[child_id](event)
-            
-    def render(self):
-        return {
-            'tag': 'div',
-            'props': {
-                'onClick': self.handle_child_event
-            },
-            'children': [
-                # Child components
-            ]
-        }
-```
-
-## Custom Events | 自定义事件
-
-Creating and using custom events:
-创建和使用自定义事件：
-
-```python
-# Define custom event | 定义自定义事件
-class DataLoadEvent(Event):
-    def __init__(self, data: Dict):
-        super().__init__('data-load', data=data)
-        self.success = data.get('success', True)
-        self.payload = data.get('payload')
-
-# Use custom event | 使用自定义事件
-class DataComponent(Component):
-    def __init__(self):
-        super().__init__()
-        self.events = EventEmitter()
-        
-    async def load_data(self):
-        try:
-            data = await fetch_data()
-            event = DataLoadEvent({
-                'success': True,
-                'payload': data
-            })
-        except Exception as e:
-            event = DataLoadEvent({
-                'success': False,
-                'error': str(e)
-            })
-        self.events.emit(event)
-```
-
-## Event Middleware | 事件中间件
-
-Example of event middleware for logging:
-事件中间件示例（日志）：
-
-```python
-class EventLogger:
-    def __init__(self, emitter: EventEmitter):
-        self.emitter = emitter
-        
-    def __call__(self, event: Event, next_handler: Callable):
-        print(f"Event: {event.type} at {event.timestamp}")
-        result = next_handler(event)
-        print(f"Event handled: {event.type}")
-        return result
-
-# Usage | 使用
-emitter = EventEmitter()
-logger = EventLogger(emitter)
-emitter.use(logger)
-```
-
-## Performance Considerations | 性能考虑
-
-1. **Event Debouncing** | 事件防抖
-```python
-from pytoweb.utils import debounce
-
-@debounce(wait_ms=100)
-def handle_resize(event):
-    # Handle resize event
-    pass
-```
-
-2. **Event Throttling** | 事件节流
-```python
-from pytoweb.utils import throttle
-
-@throttle(wait_ms=50)
-def handle_scroll(event):
-    # Handle scroll event
-    pass
-```
-
-3. **Event Pooling** | 事件池
-```python
-class EventPool:
-    def __init__(self, size: int = 10):
-        self.pool = [Event(None) for _ in range(size)]
-        self.index = 0
-        
-    def get(self, event_type: str, data: Dict = None) -> Event:
-        event = self.pool[self.index]
-        event.type = event_type
-        event.data = data
-        self.index = (self.index + 1) % len(self.pool)
-        return event
-```
+1. Use event delegation for similar elements
+2. Batch process high-frequency events
+3. Keep event handlers small and focused
+4. Clean up event listeners when components unmount
+5. Use weak references to prevent memory leaks
+6. Leverage the event system's built-in performance optimizations

@@ -1,272 +1,59 @@
-# Components API Reference | 组件 API 参考
+# PytoWeb Components | PytoWeb 组件
 
-## Base Component | 基础组件
+PytoWeb provides a rich set of pre-built components to help you build modern web applications quickly and efficiently.
 
-The `Component` class is the foundation for all PytoWeb components. It provides core functionality for state management, props handling, and rendering.
-`Component` 类是 PytoWeb 所有组件的基础。它提供了状态管理、属性处理和渲染的核心功能。
+## Basic Components | 基础组件
 
-### Class: Component | 类：组件
-
-```python
-from pytoweb.components import Component
-
-class Component:
-    def __init__(self):
-        self.props: Dict[str, Any] = {}
-        self.state: Dict[str, Any] = {}
-        self.children: List[Component] = []
-        self.parent: Optional[Component] = None
-        self.style = Style()
-        self.tag_name = "div"  # default tag
-```
-
-#### Properties | 属性
-
-- `props`: Dictionary of component properties | 组件属性字典
-- `state`: Dictionary of component state | 组件状态字典
-- `children`: List of child components | 子组件列表
-- `parent`: Reference to parent component | 父组件引用
-- `style`: Component's style instance | 组件样式实例
-- `tag_name`: HTML tag name for the component | 组件的 HTML 标签名
-
-#### Methods | 方法
-
-##### State Management | 状态管理
-
-```python
-def set_state(self, key: str, value: Any) -> Component:
-    """Set component state"""
-    self.state[key] = value
-    self._update()
-    return self
-```
-
-##### Props Management | 属性管理
-
-```python
-def set_prop(self, key: str, value: Any) -> Component:
-    """Set component property"""
-    self.props[key] = value
-    return self
-```
-
-##### Child Management | 子组件管理
-
-```python
-def add_child(self, child: Component) -> Component:
-    """Add child component"""
-    child.parent = self
-    self.children.append(child)
-    return self
-```
-
-##### Styling | 样式
-
-```python
-def apply_style(self, style: Style) -> Component:
-    """Apply style to component"""
-    self.style = self.style + style
-    return self
-```
-
-##### Rendering | 渲染
-
-```python
-def render(self) -> str:
-    """Render component to HTML string"""
-    # Implementation details...
-```
-
-## Pre-built Components | 预构建组件
-
-### Basic Components | 基础组件
-
-#### Button | 按钮
-
+### Button | 按钮
 ```python
 from pytoweb.components import Button
 
-button = Button(
-    text="Click me",
-    on_click=lambda e: print("Clicked!")
-)
+button = Button(text="Click me", on_click=lambda e: print("Clicked!"))
 ```
 
-Properties | 属性：
-- `text`: Button text | 按钮文本
-- `on_click`: Click event handler | 点击事件处理器
-
-#### Input | 输入框
-
+### Input | 输入框
 ```python
 from pytoweb.components import Input
 
-input_field = Input(
-    placeholder="Enter text",
+input = Input(
+    placeholder="Enter text...",
     value="",
-    on_change=lambda e: print(f"Value: {e.target.value}")
+    on_change=lambda e: print(f"New value: {e.target.value}")
 )
 ```
 
-Properties | 属性：
-- `placeholder`: Input placeholder text | 输入框占位符文本
-- `value`: Input value | 输入框值
-- `on_change`: Change event handler | 改变事件处理器
-
-#### Form | 表单
-
+### TextArea | 文本域
 ```python
-from pytoweb.components import Form
+from pytoweb.components import TextArea
 
-form = Form(
-    on_submit=lambda e: print("Form submitted")
+textarea = TextArea(
+    value="",
+    placeholder="Enter long text...",
+    rows=3,
+    on_change=lambda e: print(f"New value: {e.target.value}")
 )
 ```
 
-Properties | 属性：
-- `on_submit`: Submit event handler | 提交事件处理器
-
-#### Text | 文本
-
-```python
-from pytoweb.components import Text
-
-text = Text(
-    text="Hello, World!",
-    tag="p"  # Optional HTML tag
-)
-```
-
-Properties | 属性：
-- `text`: Text content | 文本内容
-- `tag`: HTML tag (default: "span") | HTML 标签（默认：“span”）
-
-#### Image | 图片
-
-```python
-from pytoweb.components import Image
-
-image = Image(
-    src="/path/to/image.jpg",
-    alt="Description",
-    width="100px",
-    height="100px"
-)
-```
-
-Properties | 属性：
-- `src`: Image source URL | 图片源 URL
-- `alt`: Alternative text | 替代文本
-- `width`: Image width | 图片宽度
-- `height`: Image height | 图片高度
-
-#### Link | 链接
-
-```python
-from pytoweb.components import Link
-
-link = Link(
-    href="/some/path",
-    text="Click here",
-    target="_blank"
-)
-```
-
-Properties | 属性：
-- `href`: Link URL | 链接 URL
-- `text`: Link text | 链接文本
-- `target`: Link target | 链接目标
-
-### Layout Components | 布局组件
-
-#### Container | 容器
-
-```python
-from pytoweb.components import Container
-
-container = Container(
-    child1,
-    child2,
-    child3
-)
-```
-
-#### Grid | 网格
-
-```python
-from pytoweb.components import Grid
-
-grid = Grid(
-    columns=12,
-    gap="1rem"
-)
-grid.add_item(component, column_span=6)
-```
-
-Properties | 属性：
-- `columns`: Number of grid columns | 网格列数
-- `gap`: Grid gap size | 网格间隙大小
-
-#### Card | 卡片
-
-```python
-from pytoweb.components import Card
-
-card = Card(
-    title="Card Title",
-    body="Card content goes here",
-    footer="Card footer"
-)
-```
-
-Properties | 属性：
-- `title`: Card title | 卡片标题
-- `body`: Card body content | 卡片正文内容
-- `footer`: Card footer content | 卡片页脚内容
-
-### Form Components | 表单组件
-
-#### Select | 选择框
-
+### Select | 选择框
 ```python
 from pytoweb.components import Select
 
-select = Select(
-    options=[
-        {"value": "1", "label": "Option 1"},
-        {"value": "2", "label": "Option 2"}
-    ],
-    value="1",
-    on_change=lambda e: print(f"Selected: {e.target.value}")
-)
+options = [
+    {"value": "1", "label": "Option 1"},
+    {"value": "2", "label": "Option 2"}
+]
+select = Select(options=options, on_change=lambda e: print(f"Selected: {e.target.value}"))
 ```
 
-Properties | 属性：
-- `options`: List of option objects | 选项对象列表
-- `value`: Selected value | 选中值
-- `on_change`: Change event handler | 改变事件处理器
-
-#### Checkbox | 复选框
-
+### Checkbox & Radio | 复选框和单选框
 ```python
-from pytoweb.components import Checkbox
+from pytoweb.components import Checkbox, Radio
 
 checkbox = Checkbox(
     label="Check me",
     checked=False,
     on_change=lambda e: print(f"Checked: {e.target.checked}")
 )
-```
-
-Properties | 属性：
-- `label`: Checkbox label | 复选框标签
-- `checked`: Checked state | 选中状态
-- `on_change`: Change event handler | 改变事件处理器
-
-#### Radio | 单选框
-
-```python
-from pytoweb.components import Radio
 
 radio = Radio(
     name="group1",
@@ -277,135 +64,190 @@ radio = Radio(
 )
 ```
 
-Properties | 属性：
-- `name`: Radio group name | 单选框组名
-- `value`: Radio value | 单选框值
-- `label`: Radio label | 单选框标签
-- `checked`: Checked state | 选中状态
-- `on_change`: Change event handler | 改变事件处理器
+## Layout Components | 布局组件
 
-### Navigation Components | 导航组件
+### Container | 容器
+```python
+from pytoweb.components import Container
 
-#### Navbar | 导航栏
+container = Container(child1, child2, child3)
+```
 
+### Grid | 网格
+```python
+from pytoweb.components import Grid
+
+grid = Grid(columns=12, gap="1rem")
+grid.add_item(component1, column_span=6)
+grid.add_item(component2, column_span=6)
+```
+
+### Flex | 弹性布局
+```python
+from pytoweb.components import Flex
+
+flex = Flex(
+    direction="row",
+    justify="space-between",
+    align="center",
+    wrap=True,
+    gap="1rem"
+)
+```
+
+## Navigation Components | 导航组件
+
+### Navbar | 导航栏
 ```python
 from pytoweb.components import Navbar
 
 navbar = Navbar(
-    brand="My App",
+    brand="PytoWeb",
     items=[
-        {"text": "Home", "href": "/"},
+        {"text": "Home", "href": "/", "active": True},
         {"text": "About", "href": "/about"}
     ],
     theme="light"
 )
 ```
 
-Properties | 属性：
-- `brand`: Brand text/logo | 品牌文本/Logo
-- `items`: Navigation items | 导航项
-- `theme`: Navbar theme | 导航栏主题
-
-#### Tabs | 标签页
-
+### Tabs | 选项卡
 ```python
-from pytoweb.components import Tabs
+from pytoweb.components import ModernTabs
 
-tabs = Tabs([
-    {"label": "Tab 1", "content": "Content 1"},
-    {"label": "Tab 2", "content": "Content 2"}
-])
+tabs = ModernTabs(
+    tabs=[
+        {"label": "Tab 1", "content": component1},
+        {"label": "Tab 2", "content": component2}
+    ],
+    active_index=0
+)
 ```
 
-Properties | 属性：
-- `tabs`: List of tab objects with label and content | 标签页对象列表，包含标签和内容
+## Advanced Components | 高级组件
 
-### Feedback Components | 反馈组件
-
-#### Modal | 模态框
-
+### Modal | 模态框
 ```python
-from pytoweb.components import Modal
+from pytoweb.components import ModernModal
 
-modal = Modal(
-    content="Modal content",
+modal = ModernModal(
     title="Modal Title",
-    show_close=True
+    content="Modal Content",
+    size="md",
+    centered=True,
+    closable=True
 )
 ```
 
-Properties | 属性：
-- `content`: Modal content | 模态框内容
-- `title`: Modal title | 模态框标题
-- `show_close`: Show close button | 显示关闭按钮
-
-#### Toast | 提示框
-
+### Toast | 提示框
 ```python
-from pytoweb.components import Toast
+from pytoweb.components import ModernToast
 
-toast = Toast(
+toast = ModernToast(
     message="Operation successful!",
-    type="success",  # success, error, warning, info
-    duration=3000
+    type="success",
+    duration=3000,
+    position="bottom-right"
 )
 ```
 
-Properties | 属性：
-- `message`: Toast message | 提示框消息
-- `type`: Toast type | 提示框类型
-- `duration`: Display duration in milliseconds | 显示时长（毫秒）
+### Accordion | 手风琴
+```python
+from pytoweb.components import ModernAccordion
 
-### Data Display Components | 数据显示组件
+accordion = ModernAccordion(
+    items=[
+        {"title": "Section 1", "content": content1},
+        {"title": "Section 2", "content": content2}
+    ],
+    multiple=False
+)
+```
 
-#### Table | 表格
+### VirtualList | 虚拟列表
+```python
+from pytoweb.components import VirtualList
 
+def render_item(item):
+    return Text(str(item))
+
+virtual_list = VirtualList(
+    items=large_data_list,
+    render_item=render_item,
+    item_height=40,
+    container_height=400
+)
+```
+
+### DraggableList | 可拖放列表
+```python
+from pytoweb.components import DraggableList
+
+draggable_list = DraggableList(
+    items=["Item 1", "Item 2", "Item 3"],
+    on_reorder=lambda new_items: print("New order:", new_items)
+)
+```
+
+### Table | 表格
 ```python
 from pytoweb.components import Table
 
+columns = [
+    {"key": "id", "title": "ID"},
+    {"key": "name", "title": "Name"}
+]
+data = [
+    {"id": 1, "name": "John"},
+    {"id": 2, "name": "Jane"}
+]
 table = Table(
-    columns=[
-        {"key": "id", "title": "ID"},
-        {"key": "name", "title": "Name"}
-    ],
-    data=[
-        {"id": 1, "name": "John"},
-        {"id": 2, "name": "Jane"}
-    ],
+    columns=columns,
+    data=data,
     sortable=True,
     filterable=True,
     page_size=10
 )
 ```
 
-Properties | 属性：
-- `columns`: Table columns configuration | 表格列配置
-- `data`: Table data | 表格数据
-- `sortable`: Enable sorting | 启用排序
-- `filterable`: Enable filtering | 启用过滤
-- `page_size`: Items per page | 每页条数
-
-#### Tree | 树形结构
-
+### Tree | 树形控件
 ```python
 from pytoweb.components import Tree
 
-tree = Tree(
-    data=[
-        {
-            "id": "1",
-            "label": "Node 1",
-            "children": [
-                {"id": "1.1", "label": "Child 1"}
-            ]
-        }
-    ],
-    expanded=False
+tree_data = [
+    {
+        "id": "1",
+        "label": "Node 1",
+        "children": [
+            {"id": "1-1", "label": "Child 1"},
+            {"id": "1-2", "label": "Child 2"}
+        ]
+    }
+]
+tree = Tree(data=tree_data, expanded=False)
+```
+
+## Error Handling | 错误处理
+
+### ErrorBoundary | 错误边界
+```python
+from pytoweb.components import ErrorBoundary
+
+def fallback(error):
+    return Text(f"An error occurred: {str(error)}")
+
+error_boundary = ErrorBoundary(
+    children=[component],
+    fallback=fallback
 )
 ```
 
-Properties | 属性：
-- `data`: Tree data structure | 树形结构数据
-- `expanded`: Initially expand all nodes | 初始展开所有节点
+### Suspense | 异步加载
+```python
+from pytoweb.components import Suspense, AsyncComponent
 
-```
+async_component = AsyncComponent()
+suspense = Suspense(
+    component=async_component,
+    fallback=Text("Loading...")
+)

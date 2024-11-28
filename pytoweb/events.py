@@ -1,10 +1,12 @@
+from __future__ import annotations
+from .state import StateManager
+
 """
 PytoWeb事件系统
 
 提供事件处理、委托、批处理和状态管理功能。
 """
 
-from __future__ import annotations
 from typing import (
     Dict, Any, Optional, Callable, List, Set,
     TypeVar, TypedDict, Union
@@ -355,71 +357,3 @@ class EventManager:
         """一次性分发多个事件"""
         for event in events:
             self.dispatch_event(event, batch=True)
-
-class StateManager:
-    """状态管理系统"""
-    
-    _instance = None
-    
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-        
-    def __init__(self):
-        if not hasattr(self, 'initialized'):
-            self._state: dict[str, Any] = {}
-            self._listeners: dict[str, list[Callable[[Any], None]]] = defaultdict(list)
-            self._batch_updates = False
-            self._pending_updates: dict[str, Any] = {}
-            self._logger = logging.getLogger(__name__)
-            self.initialized = True
-            
-    def set_state(self, key: str, value: Any):
-        """设置状态值"""
-        try:
-            if self._batch_updates:
-                self._pending_updates[key] = value
-            else:
-                old_value = self._state.get(key)
-                if old_value != value:
-                    self._state[key] = value
-                    self._notify_listeners(key)
-        except Exception as e:
-            self._logger.error(f"Error setting state: {e}", exc_info=True)
-            
-    def get_state(self, key: str, default: Any | None = None) -> Any:
-        """获取状态值"""
-        return self._state.get(key, default)
-        
-    def subscribe(self, key: str, listener: Callable[[Any], None]):
-        """订阅状态变化"""
-        if listener not in self._listeners[key]:
-            self._listeners[key].append(listener)
-            
-    def unsubscribe(self, key: str, listener: Callable[[Any], None]):
-        """取消订阅状态变化"""
-        if listener in self._listeners[key]:
-            self._listeners[key].remove(listener)
-            
-    def _notify_listeners(self, key: str):
-        """通知状态变化的监听器"""
-        value = self._state.get(key)
-        for listener in self._listeners[key]:
-            try:
-                listener(value)
-            except Exception as e:
-                self._logger.error(f"Error notifying state listener: {e}", exc_info=True)
-                
-    def batch_update(self, updates: dict[str, Any]):
-        """批量更新多个状态值"""
-        self._batch_updates = True
-        try:
-            for key, value in updates.items():
-                self.set_state(key, value)
-            for key in self._pending_updates:
-                self._state[key] = self._pending_updates[key]
-                self._notify_listeners(key)
-        finally:
-            self._batch_updates = False
-            self._pending_updates.clear()

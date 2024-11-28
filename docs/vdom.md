@@ -152,6 +152,117 @@ node = VNode('div', {
 html = VDOMRenderer.create_element(node)
 ```
 
+## Virtual DOM | 虚拟 DOM
+
+PytoWeb uses a Virtual DOM (VDOM) implementation to efficiently update the UI by minimizing direct manipulation of the actual DOM.
+
+### Overview | 概述
+
+The Virtual DOM in PytoWeb consists of three main components:
+
+1. `VNode`: Represents a node in the virtual DOM tree
+2. `VDOMDiffer`: Handles diffing between old and new virtual DOM trees
+3. `VDOMRenderer`: Renders virtual DOM nodes to actual HTML
+
+### VNode | 虚拟节点
+
+The `VNode` class represents a node in the virtual DOM tree:
+
+```python
+from pytoweb.vdom import VNode
+
+# Create a virtual DOM node
+vnode = VNode(
+    tag='div',
+    props={'class': 'container', 'id': 'main'},
+    children=[
+        VNode('h1', {'class': 'title'}, ['Hello World']),
+        VNode('p', {'class': 'content'}, ['Welcome to PytoWeb'])
+    ]
+)
+```
+
+### Properties | 属性
+
+- `tag`: HTML tag name
+- `props`: Dictionary of node properties (attributes)
+- `children`: List of child nodes
+- `key`: Optional unique identifier for optimizing list updates
+
+### VDOMDiffer | 虚拟DOM差异处理器
+
+The `VDOMDiffer` handles comparing and generating patches between old and new virtual DOM trees:
+
+```python
+from pytoweb.vdom import VDOMDiffer
+
+# Generate patches
+patches = VDOMDiffer.diff(old_vnode, new_vnode)
+```
+
+### Patch Types | 补丁类型
+
+1. **CREATE**: Create a new node
+```python
+{
+    'type': 'CREATE',
+    'node': new_node
+}
+```
+
+2. **REMOVE**: Remove an existing node
+```python
+{
+    'type': 'REMOVE'
+}
+```
+
+3. **REPLACE**: Replace an existing node
+```python
+{
+    'type': 'REPLACE',
+    'node': new_node
+}
+```
+
+4. **PROPS**: Update node properties
+```python
+{
+    'type': 'PROPS',
+    'props': {
+        'add': {'class': 'new-class'},
+        'remove': ['old-prop']
+    }
+}
+```
+
+### VDOMRenderer | 虚拟DOM渲染器
+
+The `VDOMRenderer` handles converting virtual DOM nodes to actual HTML:
+
+```python
+from pytoweb.vdom import VDOMRenderer
+
+# Create renderer
+renderer = VDOMRenderer()
+
+# Render to HTML string
+html = renderer.render_to_string(vnode)
+
+# Create actual DOM element
+element = renderer.create_element(vnode)
+```
+
+### String Pooling | 字符串池化
+
+The renderer uses string pooling to optimize memory usage:
+
+```python
+# String pooling is handled automatically
+renderer._pool_size = 1000  # Configure pool size
+pooled_string = renderer._get_pooled_string("common string")
+```
+
 ## Integration Example | 集成示例
 
 Here's a complete example showing how the Virtual DOM system works together:
@@ -211,4 +322,45 @@ def update_nodes(nodes: List[VNode], updates: List[Dict]):
     return patches
 ```
 
+## Usage in Components | 在组件中使用
+
+Example of using Virtual DOM in a component:
+
+```python
+from pytoweb.components import Component
+from pytoweb.vdom import VNode
+
+class MyComponent(Component):
+    def __init__(self):
+        super().__init__()
+        self.set_state('count', 0)
+    
+    def render(self):
+        return VNode('div', {'class': 'counter'}, [
+            VNode('h1', {}, [f'Count: {self.state["count"]}']),
+            VNode('button', {
+                'onclick': lambda e: self.set_state('count', self.state['count'] + 1)
+            }, ['Increment'])
+        ])
+```
+
+## Performance Optimization | 性能优化
+
+1. **Key Property**: Use keys for list items to optimize updates
+```python
+items = ['A', 'B', 'C']
+nodes = [VNode('li', {'key': i}, [item]) for i, item in enumerate(items)]
+```
+
+2. **Shallow Comparison**: The VDOM uses shallow comparison by default
+```python
+# Nodes are compared using __eq__
+node1 == node2  # Compares tag, props, and children
+```
+
+3. **String Pooling**: Reuse common strings to reduce memory usage
+```python
+# String pooling is automatic
+renderer = VDOMRenderer()
+renderer._pool_size = 1000  # Adjust pool size based on needs
 ```
